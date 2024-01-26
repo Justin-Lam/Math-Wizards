@@ -9,35 +9,41 @@ public class BattleManager : MonoBehaviour
 {
 	public BattleState state;
 
+	// UI
 	[SerializeField] TextMeshProUGUI dialogueText;
-	[SerializeField] GameObject abilitiesPanel;
+	[SerializeField] GameObject leftTimer;
+    [SerializeField] GameObject rightTimer;
+    [SerializeField] GameObject abilitiesPanel;
 
+	// Wizards and enemies
     [SerializeField] GameObject wizardPrefab;
     [SerializeField] GameObject enemyPrefab;
+    Unit wizardUnit;
+    Unit enemyUnit;
 
+	// Slots (should be Grids instead?)
     [SerializeField] Transform wizardSlot;
     [SerializeField] Transform enemySlot;
 
-	Unit wizardUnit;
-	Unit enemyUnit;
-
     void Start()
 	{
-		// Set state to start, do starting stuff
-		state = BattleState.START;
-		StartCoroutine(SetupBattle());
+        // Set state to start, set up the battle
+        state = BattleState.START;
+        StartCoroutine(SetupBattle());
 	}
 
 	IEnumerator SetupBattle()
 	{
+		// Hide UI stuff
+		leftTimer.SetActive(false);
+        rightTimer.SetActive(false);
+        abilitiesPanel.SetActive(false);
+
         // Set dialogue text
         dialogueText.text = "BATTLE START !!!";
 
-		// Hide abilities panel
-		abilitiesPanel.SetActive(false);
-
-		// Spawn wizards
-		GameObject wizardGO = Instantiate(wizardPrefab, wizardSlot);
+        // Spawn wizards
+        GameObject wizardGO = Instantiate(wizardPrefab, wizardSlot);
 		wizardUnit = wizardGO.GetComponent<Unit>();
 
 		// Spawn enemies
@@ -50,11 +56,43 @@ public class BattleManager : MonoBehaviour
 		PlayerTurn();
 	}
 
-	IEnumerator PlayerAttack()
-	{
-		// might want to set state to enemy turn immediately so player can't spam abilities
+    void PlayerTurn()
+    {
+        // Set dialogue text
+        dialogueText.text = "Select a wizard";
+    }
 
-		bool enemyIsDead = enemyUnit.TakeDamage(wizardUnit.dmg);
+	public void ShowAbilitiesPanel()
+	{
+		// Show abilities panel
+        abilitiesPanel.SetActive(true);
+
+        // Set dialogue text
+        dialogueText.text = "Choose an ability";
+    }
+
+    public void OnAttackButton()
+    {
+		// Hide abilities panel
+        abilitiesPanel.SetActive(false);
+
+        StartCoroutine(PlayerAttack());
+    }
+    public void OnHealButton()
+    {
+		// Hide abilities panel
+        abilitiesPanel.SetActive(false);
+
+        StartCoroutine(PlayerHeal());
+    }
+
+    IEnumerator PlayerAttack()
+	{
+		// Set state to enemy turn immediately so player can't spam abilities
+        state = BattleState.ENEMYTURN;
+
+		// Damage the enemy and record their state (dead or alive)
+        bool enemyIsDead = enemyUnit.TakeDamage(wizardUnit.dmg);
 		// update enemy hp in hud
 		dialogueText.text = "Great mathing!";		// get it wrong = "Nice try"
 
@@ -67,14 +105,13 @@ public class BattleManager : MonoBehaviour
 		}
 		else
 		{
-			state = BattleState.ENEMYTURN;
 			StartCoroutine(EnemyTurn());
 		}
 	}
 
 	IEnumerator EnemyTurn()
 	{
-		dialogueText.text = "Enemies are taking their turn";
+		dialogueText.text = "Enemies' Turn";
 
 		yield return new WaitForSeconds(1f);
 
@@ -108,14 +145,7 @@ public class BattleManager : MonoBehaviour
         }
 	}
 
-	void PlayerTurn()
-	{
-		// Set dialogue text
-        dialogueText.text = "Choose an action";
 
-		// Show abilities panel
-		abilitiesPanel.SetActive(true);
-	}
 
 	IEnumerator PlayerHeal()
 	{
@@ -128,26 +158,4 @@ public class BattleManager : MonoBehaviour
 		state = BattleState.ENEMYTURN;
 		StartCoroutine(EnemyTurn());
     }
-
-    public void OnAttackButton()
-	{
-		if (state != BattleState.PLAYERTURN)
-			return;
-
-        // Hide abilities panel
-        abilitiesPanel.SetActive(false);
-
-        StartCoroutine(PlayerAttack());
-	}
-    public void OnHealButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        // Hide abilities panel
-        abilitiesPanel.SetActive(false);
-
-        StartCoroutine(PlayerHeal());
-    }
-
 }
