@@ -12,38 +12,42 @@ public class BattleManager : MonoBehaviour
 	// UI
 	[SerializeField] TextMeshProUGUI dialogueText;
 	[SerializeField] GameObject leftTimer;
-    [SerializeField] GameObject rightTimer;
-    [SerializeField] GameObject abilitiesPanel;
+	[SerializeField] GameObject rightTimer;
+	[SerializeField] GameObject answers;
+	[SerializeField] GameObject abilitiesPanel;
 
 	// Wizards and enemies
-    [SerializeField] GameObject wizardPrefab;
-    [SerializeField] GameObject enemyPrefab;
-    Unit wizardUnit;
-    Unit enemyUnit;
+	[SerializeField] GameObject wizardPrefab;
+	[SerializeField] GameObject enemyPrefab;
+	Unit wizardUnit;
+	Unit enemyUnit;
 
 	// Slots (should be Grids instead?)
-    [SerializeField] Transform wizardSlot;
-    [SerializeField] Transform enemySlot;
+	[SerializeField] Transform wizardSlot;
+	[SerializeField] Transform enemySlot;
 
-    void Start()
+	string action;
+
+	void Start()
 	{
-        // Set state to start, set up the battle
-        state = BattleState.START;
-        StartCoroutine(SetupBattle());
+		// Set state to start, set up the battle
+		state = BattleState.START;
+		StartCoroutine(SetupBattle());
 	}
 
 	IEnumerator SetupBattle()
 	{
 		// Hide UI stuff
 		leftTimer.SetActive(false);
-        rightTimer.SetActive(false);
-        abilitiesPanel.SetActive(false);
+		rightTimer.SetActive(false);
+		answers.SetActive(false);
+		abilitiesPanel.SetActive(false);
 
-        // Set dialogue text
-        dialogueText.text = "BATTLE START !!!";
+		// Set dialogue text
+		dialogueText.text = "BATTLE START !!!";
 
-        // Spawn wizards
-        GameObject wizardGO = Instantiate(wizardPrefab, wizardSlot);
+		// Spawn wizards
+		GameObject wizardGO = Instantiate(wizardPrefab, wizardSlot);
 		wizardUnit = wizardGO.GetComponent<Unit>();
 
 		// Spawn enemies
@@ -56,45 +60,92 @@ public class BattleManager : MonoBehaviour
 		PlayerTurn();
 	}
 
-    void PlayerTurn()
-    {
-        // Set dialogue text
-        dialogueText.text = "Select a wizard";
-    }
+	void PlayerTurn()
+	{
+		// Set dialogue text
+		dialogueText.text = "Select a wizard";
+	}
 
 	public void ShowAbilitiesPanel()
 	{
 		// Show abilities panel
-        abilitiesPanel.SetActive(true);
+		abilitiesPanel.SetActive(true);
 
-        // Set dialogue text
-        dialogueText.text = "Choose an ability";
-    }
+		// Set dialogue text
+		dialogueText.text = "Choose an ability";
+	}
 
-    public void OnAttackButton()
-    {
+	public void OnAttackButton()
+	{
+		action = "attack";
+
 		// Hide abilities panel
-        abilitiesPanel.SetActive(false);
+		abilitiesPanel.SetActive(false);
 
-        StartCoroutine(PlayerAttack());
-    }
-    public void OnHealButton()
-    {
+		GenerateMathQuestion();
+	}
+	public void OnHealButton()
+	{
+		action = "heal";
+
 		// Hide abilities panel
-        abilitiesPanel.SetActive(false);
+		abilitiesPanel.SetActive(false);
 
-        StartCoroutine(PlayerHeal());
+        GenerateMathQuestion();
     }
 
-    IEnumerator PlayerAttack()
+	void GenerateMathQuestion()
+	{
+		int x = Random.Range(1, 20);
+		int y = Random.Range(1, 20);
+		int answer = x + y;
+
+		dialogueText.text = x + " + " + y + " = ???";
+
+		answers.SetActive(true);
+
+		answers.GetComponent<Answers>().SetAnswers(answer);
+	}
+
+	public void AnswerButtonPressed(bool result)
+	{
+        answers.SetActive(false);
+
+        if (result)
+		{
+			if (action == "attack")
+				StartCoroutine(PlayerAttack());
+			else if (action == "heal")
+				StartCoroutine(PlayerHeal());
+		}
+		else
+		{
+			StartCoroutine(UnsuccessfulAbility());
+		}
+	}
+
+	IEnumerator UnsuccessfulAbility()
+	// Player either chose the wrong answer or didn't answer in time
 	{
 		// Set state to enemy turn immediately so player can't spam abilities
-        state = BattleState.ENEMYTURN;
+		state = BattleState.ENEMYTURN;
+
+		// Set dialogue text
+		dialogueText.text = "Wrong answer";
+
+		yield return new WaitForSeconds(2f);
+
+		StartCoroutine(EnemyTurn());
+	}
+
+	IEnumerator PlayerAttack()
+	{
+		// Set state to enemy turn immediately so player can't spam abilities
+		state = BattleState.ENEMYTURN;
 
 		// Damage the enemy and record their state (dead or alive)
-        bool enemyIsDead = enemyUnit.TakeDamage(wizardUnit.dmg);
-		// update enemy hp in hud
-		dialogueText.text = "Great mathing!";		// get it wrong = "Nice try"
+		bool enemyIsDead = enemyUnit.TakeDamage(wizardUnit.dmg);
+		dialogueText.text = "Great mathing!";
 
 		yield return new WaitForSeconds(2f);
 
@@ -109,7 +160,20 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
-	IEnumerator EnemyTurn()
+    IEnumerator PlayerHeal()
+    {
+        // Set state to enemy turn immediately so player can't spam abilities
+        state = BattleState.ENEMYTURN;
+
+        wizardUnit.Heal(5);
+        dialogueText.text = "Great mathing!";
+
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator EnemyTurn()
 	{
 		dialogueText.text = "Enemies' Turn";
 
@@ -141,21 +205,7 @@ public class BattleManager : MonoBehaviour
 		}
 		else if (state == BattleState.LOST)
 		{
-            dialogueText.text = "You were defeated";
-        }
+			dialogueText.text = "You were defeated...";
+		}
 	}
-
-
-
-	IEnumerator PlayerHeal()
-	{
-		wizardUnit.Heal(5);
-        // update wizard hp in hud
-        dialogueText.text = "Great mathing!";       // get it wrong = "Nice try"
-
-		yield return new WaitForSeconds(2f);
-
-		state = BattleState.ENEMYTURN;
-		StartCoroutine(EnemyTurn());
-    }
 }
