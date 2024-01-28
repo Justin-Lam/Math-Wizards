@@ -6,6 +6,12 @@ using UnityEngine;
 public class Answers : MonoBehaviour
 {
 	[SerializeField] int wrongAnswerMaxDifference;
+	[SerializeField] BattleManager battleManager;
+
+	bool answer1Result;
+	bool answer2Result;
+	bool answer3Result;
+	bool answer4Result;
 
 	public void SetAnswers(int num)
 	{
@@ -21,21 +27,58 @@ public class Answers : MonoBehaviour
 			// Set the text and result
 			if (i  == correctAnswer)
 			{
-                answer.GetComponentInChildren<TextMeshProUGUI>().text = num.ToString();
-				answer.GetComponent<AnswerResult>().result = true;
-            }
+				answer.GetComponentInChildren<TextMeshProUGUI>().text = num.ToString();
+				SetAnswerResult(i, true);
+			}
 			else
 			{
 				int wrongAnswerNum = num + Random.Range(-wrongAnswerMaxDifference, wrongAnswerMaxDifference);
 				// TODO: Need to make it so there can't be duplicate wrong answers
 				while(wrongAnswerNum == num)
 				{
-                    wrongAnswerNum = num + Random.Range(-wrongAnswerMaxDifference, wrongAnswerMaxDifference);
-                }
+					wrongAnswerNum = num + Random.Range(-wrongAnswerMaxDifference, wrongAnswerMaxDifference);
+				}
 
-                answer.GetComponentInChildren<TextMeshProUGUI>().text = wrongAnswerNum.ToString();
-                answer.GetComponent<AnswerResult>().result = false;
-            }
+				answer.GetComponentInChildren<TextMeshProUGUI>().text = wrongAnswerNum.ToString();
+				SetAnswerResult(i, false);
+			}
 		}
+	}
+	void SetAnswerResult(int i, bool result)
+	{
+		switch(i)
+		{
+			case 0:
+				answer1Result = result;
+				break;
+			case 1:
+				answer2Result = result;
+				break;
+			case 2:
+				answer3Result = result;
+				break;
+			case 3:
+				answer4Result = result;
+				break;
+			default:		// should never happen
+				return;
+		}
+	}
+
+	public void OnAnswer1Button()
+	{
+		battleManager.AnswerButtonPressed(answer1Result);
+	}
+	public void OnAnswer2Button()
+	{
+		battleManager.AnswerButtonPressed(answer2Result);
+	}
+	public void OnAnswer3Button()
+	{
+		battleManager.AnswerButtonPressed(answer3Result);
+	}
+	public void OnAnswer4Button()
+	{
+		battleManager.AnswerButtonPressed(answer4Result);
 	}
 }

@@ -11,8 +11,7 @@ public class BattleManager : MonoBehaviour
 
 	// UI
 	[SerializeField] TextMeshProUGUI dialogueText;
-	[SerializeField] GameObject leftTimer;
-	[SerializeField] GameObject rightTimer;
+    [SerializeField] GameObject timer;
 	[SerializeField] GameObject answers;
 	[SerializeField] GameObject abilitiesPanel;
 
@@ -30,16 +29,17 @@ public class BattleManager : MonoBehaviour
 
 	void Start()
 	{
-		// Set state to start, set up the battle
-		state = BattleState.START;
+		// Set up battle
 		StartCoroutine(SetupBattle());
 	}
 
 	IEnumerator SetupBattle()
 	{
-		// Hide UI stuff
-		leftTimer.SetActive(false);
-		rightTimer.SetActive(false);
+		// Set state
+        state = BattleState.START;
+
+        // Hide UI stuff
+        timer.SetActive(false);
 		answers.SetActive(false);
 		abilitiesPanel.SetActive(false);
 
@@ -54,16 +54,18 @@ public class BattleManager : MonoBehaviour
 		GameObject enemyGO = Instantiate(enemyPrefab, enemySlot);
 		enemyUnit = enemyGO.GetComponent<Unit>();
 
-		// Set to player turn
+		// Set to player turn after 2 seconds
 		yield return new WaitForSeconds(2f);
-		state = BattleState.PLAYERTURN;
 		PlayerTurn();
 	}
 
 	void PlayerTurn()
 	{
-		// Set dialogue text
-		dialogueText.text = "Select a wizard";
+        // Set state
+        state = BattleState.PLAYERTURN;
+
+        // Set dialogue text
+        dialogueText.text = "Select a wizard";
 	}
 
 	public void ShowAbilitiesPanel()
@@ -83,7 +85,8 @@ public class BattleManager : MonoBehaviour
 		abilitiesPanel.SetActive(false);
 
 		GenerateMathQuestion();
-	}
+        timer.SetActive(true);
+    }
 	public void OnHealButton()
 	{
 		action = "heal";
@@ -91,7 +94,9 @@ public class BattleManager : MonoBehaviour
 		// Hide abilities panel
 		abilitiesPanel.SetActive(false);
 
+		// Generate math question and show timer
         GenerateMathQuestion();
+		timer.SetActive(true);
     }
 
 	void GenerateMathQuestion()
@@ -109,6 +114,8 @@ public class BattleManager : MonoBehaviour
 
 	public void AnswerButtonPressed(bool result)
 	{
+		// Hide stuff
+		timer.SetActive(false);
         answers.SetActive(false);
 
         if (result)
@@ -151,8 +158,7 @@ public class BattleManager : MonoBehaviour
 
 		if (enemyIsDead)
 		{
-			state = BattleState.WON;
-			EndBattle();
+			WinBattle();
 		}
 		else
 		{
@@ -175,7 +181,10 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator EnemyTurn()
 	{
-		dialogueText.text = "Enemies' Turn";
+        // Set state
+        state = BattleState.ENEMYTURN;
+
+        dialogueText.text = "Enemies' Turn";
 
 		yield return new WaitForSeconds(1f);
 
@@ -186,8 +195,7 @@ public class BattleManager : MonoBehaviour
 
 		if (wizardIsDead)
 		{
-			state = BattleState.LOST;
-			EndBattle();
+			LoseBattle();
 		}
 		else
 		{
@@ -196,16 +204,21 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
-	void EndBattle()
+	void WinBattle()
 	{
-		if (state == BattleState.WON)
-		{
-			dialogueText.text = "You won the battle!";
+        // Set state
+        state = BattleState.WON;
 
-		}
-		else if (state == BattleState.LOST)
-		{
-			dialogueText.text = "You were defeated...";
-		}
-	}
+		// Set dialogue text
+        dialogueText.text = "You won the battle!";
+    }
+
+	void LoseBattle()
+	{
+        // Set state
+        state = BattleState.LOST;
+
+		// Set dialogue text
+        dialogueText.text = "You were defeated...";
+    }
 }

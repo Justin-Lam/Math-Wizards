@@ -379,7 +379,6 @@ GameObject:
   - component: {fileID: 121066613}
   - component: {fileID: 121066612}
   - component: {fileID: 121066611}
-  - component: {fileID: 121066610}
   m_Layer: 5
   m_Name: Answer 4
   m_TagString: Untagged
@@ -407,20 +406,6 @@ RectTransform:
   m_AnchoredPosition: {x: 420, y: 0}
   m_SizeDelta: {x: 280, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &121066610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121066608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f46c1f92e8fc545accd7b627c56a28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  battleManager: {fileID: 133438143}
-  result: 0
 --- !u!114 &121066611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,9 +450,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121066610}
-        m_TargetAssemblyTypeName: AnswerResult, Assembly-CSharp
-        m_MethodName: OnAnswerButton
+      - m_Target: {fileID: 1777919887}
+        m_TargetAssemblyTypeName: Answers, Assembly-CSharp
+        m_MethodName: OnAnswer4Button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -546,8 +531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   dialogueText: {fileID: 1773715973}
-  leftTimer: {fileID: 1357084991}
-  rightTimer: {fileID: 1705273040}
+  timer: {fileID: 310583077}
   answers: {fileID: 1777919886}
   abilitiesPanel: {fileID: 88723739}
   wizardPrefab: {fileID: 4700354737839252297, guid: 67321f03d82a99d40988bc556c3f4a44, type: 3}
@@ -841,6 +825,59 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &310583077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 310583078}
+  - component: {fileID: 310583079}
+  m_Layer: 5
+  m_Name: Timer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &310583078
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310583077}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1357084992}
+  - {fileID: 1705273041}
+  m_Father: {fileID: 399720473}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &310583079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310583077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08abb718e6e186048bd2f37706e27052, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeLimit: 5
+  leftTimer: {fileID: 1357084993}
+  rightTimer: {fileID: 1705273042}
 --- !u!1 &399720472
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,8 +909,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1773715972}
-  - {fileID: 1357084992}
-  - {fileID: 1705273041}
+  - {fileID: 310583078}
   m_Father: {fileID: 300851317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1360,7 +1396,6 @@ GameObject:
   - component: {fileID: 939344632}
   - component: {fileID: 939344631}
   - component: {fileID: 939344630}
-  - component: {fileID: 939344629}
   m_Layer: 5
   m_Name: Answer 2
   m_TagString: Untagged
@@ -1388,20 +1423,6 @@ RectTransform:
   m_AnchoredPosition: {x: -140, y: 0}
   m_SizeDelta: {x: 280, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &939344629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 939344627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f46c1f92e8fc545accd7b627c56a28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  battleManager: {fileID: 133438143}
-  result: 0
 --- !u!114 &939344630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1446,9 +1467,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 939344629}
-        m_TargetAssemblyTypeName: AnswerResult, Assembly-CSharp
-        m_MethodName: OnAnswerButton
+      - m_Target: {fileID: 1777919887}
+        m_TargetAssemblyTypeName: Answers, Assembly-CSharp
+        m_MethodName: OnAnswer2Button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1683,7 +1704,6 @@ GameObject:
   - component: {fileID: 1269765281}
   - component: {fileID: 1269765280}
   - component: {fileID: 1269765279}
-  - component: {fileID: 1269765278}
   m_Layer: 5
   m_Name: Answer 1
   m_TagString: Untagged
@@ -1711,20 +1731,6 @@ RectTransform:
   m_AnchoredPosition: {x: -420, y: 0}
   m_SizeDelta: {x: 280, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1269765278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269765276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f46c1f92e8fc545accd7b627c56a28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  battleManager: {fileID: 133438143}
-  result: 0
 --- !u!114 &1269765279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1769,9 +1775,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269765278}
-        m_TargetAssemblyTypeName: AnswerResult, Assembly-CSharp
-        m_MethodName: OnAnswerButton
+      - m_Target: {fileID: 1777919887}
+        m_TargetAssemblyTypeName: Answers, Assembly-CSharp
+        m_MethodName: OnAnswer1Button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1905,7 +1911,7 @@ GameObject:
   - component: {fileID: 1357084992}
   - component: {fileID: 1357084993}
   m_Layer: 5
-  m_Name: Timer (Left Side)
+  m_Name: Left Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1924,7 +1930,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2074172150}
-  m_Father: {fileID: 399720473}
+  m_Father: {fileID: 310583078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2263,7 +2269,7 @@ GameObject:
   - component: {fileID: 1705273041}
   - component: {fileID: 1705273042}
   m_Layer: 5
-  m_Name: Timer (Right Side)
+  m_Name: Right Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2276,13 +2282,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705273040}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 504575825}
-  m_Father: {fileID: 399720473}
+  m_Father: {fileID: 310583078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2504,6 +2510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrongAnswerMaxDifference: 10
+  battleManager: {fileID: 133438143}
 --- !u!224 &1777919888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2539,7 +2546,6 @@ GameObject:
   - component: {fileID: 1913771751}
   - component: {fileID: 1913771750}
   - component: {fileID: 1913771749}
-  - component: {fileID: 1913771748}
   m_Layer: 5
   m_Name: Answer 3
   m_TagString: Untagged
@@ -2567,20 +2573,6 @@ RectTransform:
   m_AnchoredPosition: {x: 140, y: 0}
   m_SizeDelta: {x: 280, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1913771748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1913771746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f46c1f92e8fc545accd7b627c56a28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  battleManager: {fileID: 133438143}
-  result: 0
 --- !u!114 &1913771749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2625,9 +2617,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1913771748}
-        m_TargetAssemblyTypeName: AnswerResult, Assembly-CSharp
-        m_MethodName: OnAnswerButton
+      - m_Target: {fileID: 1777919887}
+        m_TargetAssemblyTypeName: Answers, Assembly-CSharp
+        m_MethodName: OnAnswer3Button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
