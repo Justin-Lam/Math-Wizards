@@ -85,7 +85,6 @@ public class BattleManager : MonoBehaviour
 		abilitiesPanel.SetActive(false);
 
 		GenerateMathQuestion();
-        timer.SetActive(true);
     }
 	public void OnHealButton()
 	{
@@ -96,12 +95,16 @@ public class BattleManager : MonoBehaviour
 
 		// Generate math question and show timer
         GenerateMathQuestion();
-		timer.SetActive(true);
     }
 
 	void GenerateMathQuestion()
 	{
-		int x = Random.Range(1, 20);
+		// Timer stuff
+        timer.SetActive(true);
+		StartCoroutine(timer.GetComponent<Timer>().ActivateTimer());
+
+		// Qustion stuff
+        int x = Random.Range(1, 20);
 		int y = Random.Range(1, 20);
 		int answer = x + y;
 
@@ -115,6 +118,7 @@ public class BattleManager : MonoBehaviour
 	public void AnswerButtonPressed(bool result)
 	{
 		// Hide stuff
+		timer.GetComponent<Timer>().DeactivateTimer();
 		timer.SetActive(false);
         answers.SetActive(false);
 
@@ -127,12 +131,11 @@ public class BattleManager : MonoBehaviour
 		}
 		else
 		{
-			StartCoroutine(UnsuccessfulAbility());
+			StartCoroutine(WrongAnswer());
 		}
 	}
 
-	IEnumerator UnsuccessfulAbility()
-	// Player either chose the wrong answer or didn't answer in time
+	IEnumerator WrongAnswer()
 	{
 		// Set state to enemy turn immediately so player can't spam abilities
 		state = BattleState.ENEMYTURN;
@@ -144,6 +147,27 @@ public class BattleManager : MonoBehaviour
 
 		StartCoroutine(EnemyTurn());
 	}
+
+	public void OutOfTime()
+	{
+        // Set state to enemy turn immediately so player can't spam abilities
+        state = BattleState.ENEMYTURN;
+
+        // Hide Stuff
+        timer.SetActive(false);
+        answers.SetActive(false);
+
+        // Set dialogue text
+        dialogueText.text = "Out of time";
+
+		StartCoroutine(WaitThenSetEnemyTurn());
+    }
+
+	IEnumerator WaitThenSetEnemyTurn()
+	{
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(EnemyTurn());
+    }
 
 	IEnumerator PlayerAttack()
 	{

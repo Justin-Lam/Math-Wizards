@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,14 +8,17 @@ public class Timer : MonoBehaviour
 {
     [Tooltip("num seconds timer runs for")][SerializeField] float timeLimit;
     float timeLeft;
+	bool active;
     [SerializeField] Slider leftTimer;
     [SerializeField] Slider rightTimer;
+	[SerializeField] BattleManager battleManager;
 
-    IEnumerator ActivateTimer()
+    public IEnumerator ActivateTimer()
     {
         timeLeft = timeLimit;
+		active = true;
 
-        while (timeLeft > 0)
+        while (timeLeft > 0 && active)
         {
             leftTimer.value = timeLeft / timeLimit;
             rightTimer.value = timeLeft / timeLimit;
@@ -24,8 +28,17 @@ public class Timer : MonoBehaviour
             timeLeft -= Time.deltaTime;
         }
 
-        // OutOfTime();
+		if (active)		// ran out of time
+		{
+			active = false;
+			battleManager.OutOfTime();
+        }
     }
+
+	public void DeactivateTimer()
+	{
+		active = false;
+	}
 }
 
 /*

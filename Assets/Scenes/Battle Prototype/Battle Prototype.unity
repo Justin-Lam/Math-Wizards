@@ -878,6 +878,7 @@ MonoBehaviour:
   timeLimit: 5
   leftTimer: {fileID: 1357084993}
   rightTimer: {fileID: 1705273042}
+  battleManager: {fileID: 133438143}
 --- !u!1 &399720472
 GameObject:
   m_ObjectHideFlags: 0
