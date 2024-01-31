@@ -8,7 +8,7 @@ public class Wizard : Unit
 	// For selecting a wizard
 	{
 		// Check for if its player turn
-		if (FindObjectOfType<BattleManager2>().GetBattleState() == BattleState.PLAYER_TURN &&
+		if (FindObjectOfType<BattleManager>().GetBattleState() == BattleState.PLAYER_TURN &&
 			FindObjectOfType<PlayerTurn>().GetWizardSelected() == null)
 		{
             // Call the appropriate function in PlayerTurn

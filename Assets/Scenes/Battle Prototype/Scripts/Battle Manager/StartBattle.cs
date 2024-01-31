@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class StartBattle : MonoBehaviour
 {
-    [SerializeField] BattleManager2 battleManager;
+    [SerializeField] BattleManager battleManager;
 
     public IEnumerator SetupBattle()
     {

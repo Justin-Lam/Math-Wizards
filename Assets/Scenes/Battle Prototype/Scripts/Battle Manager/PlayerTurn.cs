@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerTurn : MonoBehaviour
 {
-	[SerializeField] BattleManager2 battleManager;
+	[SerializeField] BattleManager battleManager;
     [SerializeField] Questions questions;
 
 	Wizard wizardSelected;

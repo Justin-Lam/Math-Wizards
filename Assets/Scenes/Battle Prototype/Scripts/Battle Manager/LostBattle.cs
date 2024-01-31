@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LostBattle : MonoBehaviour
 {
-	[SerializeField] BattleManager2 battleManager;
+	[SerializeField] BattleManager battleManager;
 
 	public void BecameLost()
 	{

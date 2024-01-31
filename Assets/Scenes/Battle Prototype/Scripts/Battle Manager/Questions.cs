@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Questions : MonoBehaviour
 {
-	[SerializeField] BattleManager2 battleManager;
+	[SerializeField] BattleManager battleManager;
 
 	int x;
 	int y;

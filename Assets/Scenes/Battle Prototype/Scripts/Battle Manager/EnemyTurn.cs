@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyTurn : MonoBehaviour
 {
-	[SerializeField] BattleManager2 battleManager;
+	[SerializeField] BattleManager battleManager;
 
 	public IEnumerator BecameEnemyTurn()
     {
