@@ -7,8 +7,8 @@ public class Unit : MonoBehaviour
     [SerializeField] string Unitname;
     [SerializeField] int maxHP;
     [SerializeField] int currentHP;
-    //[SerializeField] int Unitlevel;
-    public int dmg;
+	//[SerializeField] protected int Unitlevel;
+	[SerializeField] int dmg;
 
 	[SerializeField] FloatingHealthBar healthBarScript;
 
@@ -18,17 +18,15 @@ public class Unit : MonoBehaviour
         healthBarScript.UpdateHealthBar(currentHP, maxHP);
     }
 
-    public bool TakeDamage(int amount)
-	// Returns true if the unit died, false otherwise
+	public bool IsAlive() { return currentHP > 0; }
+
+    public void TakeDamage(int amount)
 	{
 		// Take damage
 		currentHP -= amount;
 
         // Update health bar
         healthBarScript.UpdateHealthBar(currentHP, maxHP);
-
-		// Return the state of the unit (dead or alive)
-		return currentHP <= 0;
 	}
 
 	public void Heal(int amount)
@@ -43,4 +41,9 @@ public class Unit : MonoBehaviour
         if (currentHP > maxHP)
 			currentHP = maxHP;
 	}
+
+	public string GetUnitName() { return Unitname; }
+	public int GetMaxHP() {  return maxHP; }
+	public int GetCurrentHP() {  return currentHP; }
+	public int GetDmg() { return dmg; }
 }

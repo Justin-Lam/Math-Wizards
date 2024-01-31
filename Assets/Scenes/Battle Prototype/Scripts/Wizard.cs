@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Wizard : Unit
 {
-    void OnMouseDown()
-    // For selecting a wizard
-    {
-        // Get the BattleManager script
-        GameObject bm = GameObject.Find("Battle Manager");          // "Battle Manager"
-        BattleManager bms = bm.GetComponent<BattleManager>();       // "BattleManager Script"
-
-        // Show abilities if it's player's turn
-        if (bms.state == BattleState.PLAYERTURN)
-            bms.ShowAbilitiesPanel();
-    }
+	void OnMouseDown()
+	// For selecting a wizard
+	{
+		// Check for if its player turn
+		if (FindObjectOfType<BattleManager2>().GetBattleState() == BattleState.PLAYER_TURN &&
+			FindObjectOfType<PlayerTurn>().GetWizardSelected() == null)
+		{
+            // Call the appropriate function in PlayerTurn
+            PlayerTurn playerTurn = FindObjectOfType<PlayerTurn>();
+            playerTurn.WizardSelected(this);
+        }
+	}
 }

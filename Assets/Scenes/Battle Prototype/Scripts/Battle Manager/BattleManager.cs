@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
-
 public class BattleManager : MonoBehaviour
 {
+	/*
 	public BattleState state;
 
 	// UI
@@ -245,4 +244,5 @@ public class BattleManager : MonoBehaviour
 		// Set dialogue text
         dialogueText.text = "You were defeated...";
     }
+	*/
 }

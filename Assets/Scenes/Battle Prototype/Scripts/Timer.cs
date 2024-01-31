@@ -11,7 +11,7 @@ public class Timer : MonoBehaviour
 	bool active;
     [SerializeField] Slider leftTimer;
     [SerializeField] Slider rightTimer;
-	[SerializeField] BattleManager battleManager;
+	[SerializeField] PlayerTurn playerTurn;
 
     public IEnumerator ActivateTimer()
     {
@@ -31,7 +31,7 @@ public class Timer : MonoBehaviour
 		if (active)		// ran out of time
 		{
 			active = false;
-			battleManager.OutOfTime();
+			playerTurn.OutOfTime();
         }
     }
 
@@ -40,35 +40,3 @@ public class Timer : MonoBehaviour
 		active = false;
 	}
 }
-
-/*
-public class Timer : MonoBehaviour
-{
-	[Tooltip("num seconds timer runs for")][SerializeField] float timeLimit;
-	float timeLeft;
-	[SerializeField] Slider leftTimer;
-    [SerializeField] Slider rightTimer;
-
-	void Start()
-	{
-		timeLeft = timeLimit;
-	}
-
-	void Update()
-	{
-		if (gameObject.activeSelf)     // timer is showing
-		{
-			// if(timeLeft <= 0)
-				// out of time function
-
-			timeLeft -= 1 * Time.deltaTime;
-			leftTimer.value = timeLeft / timeLimit;
-			rightTimer.value = timeLeft / timeLimit;
-		}
-		else
-		{
-			timeLeft = timeLimit;
-		}
-	}
-}
-*/
