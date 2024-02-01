@@ -15,6 +15,8 @@ public class BattleManager : MonoBehaviour
 	[SerializeField] LostBattle lostBattle;
 
 	[Header("UI")]
+	public GameObject wizardStats;
+	public GameObject enemyStats;
 	public TextMeshProUGUI dialogueText;
 	public GameObject timer;
 	public GameObject answers;

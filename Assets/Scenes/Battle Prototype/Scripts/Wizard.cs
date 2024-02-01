@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Wizard : Unit
 {
+	void OnMouseEnter()
+	// For hovering a wizard
+	{
+		// Get the Wizard Stats game object and its UnitStats
+		GameObject wizardStatsGO = FindObjectOfType<BattleManager>().wizardStats;
+		UnitStats unitStats = wizardStatsGO.GetComponent<UnitStats>();
+
+		// Show and update unit stats
+		wizardStatsGO.SetActive(true);
+		unitStats.UpdateDisplay(GetUnitSO(), GetCurrentHealth());
+	}
+
 	void OnMouseDown()
 	// For selecting a wizard
 	{

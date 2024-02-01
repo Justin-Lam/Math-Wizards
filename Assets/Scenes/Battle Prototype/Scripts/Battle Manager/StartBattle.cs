@@ -14,7 +14,9 @@ public class StartBattle : MonoBehaviour
         battleManager.SetBattleState(BattleState.START);
 
         // Hide UI stuff
-        battleManager.timer.SetActive(false);
+        battleManager.wizardStats.SetActive(false);
+		battleManager.enemyStats.SetActive(false);
+		battleManager.timer.SetActive(false);
         battleManager.answers.SetActive(false);
         battleManager.abilitiesPanel.SetActive(false);
 

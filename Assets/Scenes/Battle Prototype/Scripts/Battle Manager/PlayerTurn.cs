@@ -108,7 +108,7 @@ public class PlayerTurn : MonoBehaviour
 	IEnumerator PlayerAttack()
 	{
 		// Damage the enemy
-		battleManager.enemyUnit.TakeDamage(battleManager.wizardUnit.GetDmg());
+		battleManager.enemyUnit.TakeDamage(battleManager.wizardUnit.GetUnitSO().physicalAttack);
 		battleManager.dialogueText.text = "Great mathing!";
 
 		// Wait for some time

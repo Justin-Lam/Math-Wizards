@@ -4,46 +4,48 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] string Unitname;
-    [SerializeField] int maxHP;
-    [SerializeField] int currentHP;
-	//[SerializeField] protected int Unitlevel;
-	[SerializeField] int dmg;
+	[SerializeField] UnitSO unitSO;
+	float currentHeath;
 
 	[SerializeField] FloatingHealthBar healthBarScript;
 
     void Start()
     {
-        // Set the health bar
-        healthBarScript.UpdateHealthBar(currentHP, maxHP);
+		// Set currentHeath
+		currentHeath = unitSO.maxHealth;
+
+        // Set health bar
+        healthBarScript.UpdateHealthBar(currentHeath, unitSO.maxHealth);
     }
 
-	public bool IsAlive() { return currentHP > 0; }
+	public bool IsAlive() { return currentHeath > 0f; }
 
     public void TakeDamage(int amount)
 	{
 		// Take damage
-		currentHP -= amount;
+		currentHeath -= amount;
 
         // Update health bar
-        healthBarScript.UpdateHealthBar(currentHP, maxHP);
+        healthBarScript.UpdateHealthBar(currentHeath, unitSO.maxHealth);
+
+		// Fix health if needed
+		if (currentHeath < 0f)
+			currentHeath = 0f;
 	}
 
 	public void Heal(int amount)
 	{
 		// Heal
-		currentHP += amount;
+		currentHeath += amount;
 
         // Update health bar
-        healthBarScript.UpdateHealthBar(currentHP, maxHP);
+        healthBarScript.UpdateHealthBar(currentHeath, unitSO.maxHealth);
 
         // Fix health if needed
-        if (currentHP > maxHP)
-			currentHP = maxHP;
+        if (currentHeath > unitSO.maxHealth)
+			currentHeath = unitSO.maxHealth;
 	}
 
-	public string GetUnitName() { return Unitname; }
-	public int GetMaxHP() {  return maxHP; }
-	public int GetCurrentHP() {  return currentHP; }
-	public int GetDmg() { return dmg; }
+	public UnitSO GetUnitSO() { return unitSO; }
+	public float GetCurrentHealth() {  return currentHeath; }
 }
