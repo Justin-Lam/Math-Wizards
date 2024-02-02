@@ -7,12 +7,11 @@ using UnityEngine;
 public class StartBattle : MonoBehaviour
 {
     [SerializeField] BattleManager battleManager;
+    [SerializeField] GameObject wizardPrefab;
+    [SerializeField] GameObject enemyPrefab;
 
     public IEnumerator SetupBattle()
     {
-        // Set state
-        battleManager.SetBattleState(BattleState.START);
-
         // Hide UI stuff
         battleManager.wizardStats.SetActive(false);
 		battleManager.enemyStats.SetActive(false);
@@ -20,19 +19,30 @@ public class StartBattle : MonoBehaviour
         battleManager.answers.SetActive(false);
         battleManager.abilitiesPanel.SetActive(false);
 
+        // Show UI stuff
+        battleManager.dialoguePanel.SetActive(true);
+
         // Set dialogue
         battleManager.dialogueText.text = "BATTLE START !!!";
 
         // Spawn wizards
-        GameObject wizardGO = Instantiate(battleManager.wizardPrefab, battleManager.wizardSlot);
-        battleManager.wizardUnit = wizardGO.GetComponent<Unit>();
+        foreach (UnitData unitData in battleManager.battleData.wizards)
+        {
+            Wizard wizard = Instantiate(wizardPrefab, unitData.slot.transform).GetComponent<Wizard>();
+            wizard.SetUnitSO(unitData.unit);
+            wizard.InitializeUnit();
+        }
 
-        // Spawn enemies
-        GameObject enemyGO = Instantiate(battleManager.enemyPrefab, battleManager.enemySlot);
-        battleManager.enemyUnit = enemyGO.GetComponent<Unit>();
+		// Spawn enemies
+		foreach (UnitData unitData in battleManager.battleData.waves[0].enemies)
+		{
+			Unit enemy = Instantiate(enemyPrefab, unitData.slot.transform).GetComponent<Unit>();
+			enemy.SetUnitSO(unitData.unit);
+			enemy.InitializeUnit();
+		}
 
-        // Wait 2 seconds
-        yield return new WaitForSeconds(2f);
+		// Wait 2 seconds
+		yield return new WaitForSeconds(2f);
 
         // Set to player turn
         battleManager.SetPlayerTurn();

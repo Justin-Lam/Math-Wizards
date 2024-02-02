@@ -108,14 +108,14 @@ public class PlayerTurn : MonoBehaviour
 	IEnumerator PlayerAttack()
 	{
 		// Damage the enemy
-		battleManager.enemyUnit.TakeDamage(battleManager.wizardUnit.GetUnitSO().physicalAttack);
+		//battleManager.enemyUnit.TakeDamage(battleManager.wizardUnit.GetUnitSO().physicalAttack);
 		battleManager.dialogueText.text = "Great mathing!";
 
 		// Wait for some time
 		yield return new WaitForSeconds(2f);
 
 		// Change battle state depending on status of the enemy
-		if (battleManager.enemyUnit.IsAlive())
+		if (true)//battleManager.enemyUnit.IsAlive())
 		{
 			battleManager.SetEnemyTurn();
 		}
@@ -128,7 +128,7 @@ public class PlayerTurn : MonoBehaviour
 	IEnumerator PlayerHeal()
 	{
 		// Heal the wizard a random amount
-		battleManager.wizardUnit.Heal(Random.Range(5, 15));
+		//battleManager.wizardUnit.Heal(Random.Range(5, 15));
 		battleManager.dialogueText.text = "Great mathing!";
 
 		// Set enemy turn after some time
