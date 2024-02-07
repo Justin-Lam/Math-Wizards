@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class HideUnitStats : MonoBehaviour
 {
-	[SerializeField] GameObject wizardStats;
-	[SerializeField] GameObject enemyStats;
+	[SerializeField] UIHUDManager uiHudManager;
 
 	void OnMouseEnter()
 	// For when anything is unhovered
 	{
-		// Hide stats UI
-		wizardStats.SetActive(false);
-		enemyStats.SetActive(false);
+		// Hide wizard and enemy stats HUD
+		uiHudManager.HideWizardStats();
+		uiHudManager.HideEnemyStats();
 	}
 }

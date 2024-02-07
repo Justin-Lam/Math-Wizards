@@ -7,50 +7,50 @@ public class Unit : MonoBehaviour
 	[SerializeField] SpriteRenderer spriteRenderer;
 	[SerializeField] FloatingHealthBar healthBarScript;
 
-	UnitSO unitSO;
-	float currentHeath;
+	protected UnitSO unitSO;
+	protected float currentHealth;
 
 	public void InitializeUnit()
     {
 		// Set currentHeath
-		currentHeath = unitSO.maxHealth;
+		currentHealth = unitSO.maxHealth;
 
 		// Set sprite
 		spriteRenderer.sprite = unitSO.sprite;
 
         // Set health bar
-        healthBarScript.UpdateHealthBar(currentHeath, unitSO.maxHealth);
+        healthBarScript.UpdateHealthBar(currentHealth, unitSO.maxHealth);
     }
 
-	public bool IsAlive() { return currentHeath > 0f; }
+	public bool IsAlive() { return currentHealth > 0f; }
 
     public void TakeDamage(int amount)
 	{
 		// Take damage
-		currentHeath -= amount;
+		currentHealth -= amount;
 
         // Update health bar
-        healthBarScript.UpdateHealthBar(currentHeath, unitSO.maxHealth);
+        healthBarScript.UpdateHealthBar(currentHealth, unitSO.maxHealth);
 
 		// Fix health if needed
-		if (currentHeath < 0f)
-			currentHeath = 0f;
+		if (currentHealth < 0f)
+			currentHealth = 0f;
 	}
 
 	public void Heal(int amount)
 	{
 		// Heal
-		currentHeath += amount;
+		currentHealth += amount;
 
         // Update health bar
-        healthBarScript.UpdateHealthBar(currentHeath, unitSO.maxHealth);
+        healthBarScript.UpdateHealthBar(currentHealth, unitSO.maxHealth);
 
         // Fix health if needed
-        if (currentHeath > unitSO.maxHealth)
-			currentHeath = unitSO.maxHealth;
+        if (currentHealth > unitSO.maxHealth)
+			currentHealth = unitSO.maxHealth;
 	}
 
 	public UnitSO GetUnitSO() { return unitSO; }
 	public void SetUnitSO(UnitSO input) { unitSO = input; }
-	public float GetCurrentHealth() {  return currentHeath; }
+	public float GetCurrentHealth() {  return currentHealth; }
 }

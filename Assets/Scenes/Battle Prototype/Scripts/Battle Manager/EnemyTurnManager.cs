@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTurn : MonoBehaviour
+public class EnemyTurnManager : MonoBehaviour
 {
 	[SerializeField] BattleManager battleManager;
+	[SerializeField] UIHUDManager uiHudManager;
 
-	public IEnumerator BecameEnemyTurn()
+	public IEnumerator SetupEnemyTurn()
     {
 		// Set dialogue
-		battleManager.dialogueText.text = "Enemies' Turn";
+		uiHudManager.SetBattleText("Enemies' Turn");
 
 		// Wait for some time, attach the wizard, then wait again
 		yield return new WaitForSeconds(1f);

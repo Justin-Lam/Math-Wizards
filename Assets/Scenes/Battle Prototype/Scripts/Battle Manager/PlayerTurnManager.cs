@@ -2,34 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTurn : MonoBehaviour
+public class PlayerTurnManager : MonoBehaviour
 {
 	[SerializeField] BattleManager battleManager;
+	[SerializeField] UIHUDManager uiHudManager;
     [SerializeField] Questions questions;
-
-	Wizard wizardSelected;
-	// Ability abilitySelected;
-	Unit enemySelected;
 
     string action;
 
-	public void BecamePlayerTurn()
+	public void SetupPlayerTurn()
 	{
-		// Set dialogue
-        battleManager.dialogueText.text = "Select a wizard";
+		// Set battle text
+		uiHudManager.SetBattleText("5 Actions Remaining");
     }
 
 	public void WizardSelected(Wizard wizard)
 	{
-		// Set wizardSelected
-		wizardSelected = wizard;
-		wizardSelected = null;		// this is for temporary, this is ideally supposed to be in a different function as an ability wraps up
-
 		// Show abilities panel
-		battleManager.abilitiesPanel.SetActive(true);
-
-		// Set dialogue 
-		battleManager.dialogueText.text = "Choose an ability";
+		uiHudManager.ShowAbilitiesPanel();
 	}
 
     public void OnAttackButton()
@@ -37,32 +27,31 @@ public class PlayerTurn : MonoBehaviour
         // Record the ability
         action = "attack";
 
-        // Hide abilities panel
-        battleManager.abilitiesPanel.SetActive(false);
+		// Hide abilities panel
+		uiHudManager.HideAbilitiesPanel();
 
 		// Give a math question
-		questions.GiveMathQuestion();
+		StartCoroutine(questions.GiveMathQuestion());
     }
     public void OnHealButton()
     {
         // Record the ability
         action = "heal";
 
-        // Hide abilities panel
-        battleManager.abilitiesPanel.SetActive(false);
+		// Hide abilities panel
+		uiHudManager.HideAbilitiesPanel();
 
 		// Give a math question
-		questions.GiveMathQuestion();
+		StartCoroutine(questions.GiveMathQuestion());
 	}
 
-    public void AnswerSelected(bool result)
+	public void AnswerSelected(bool result)
     {
 		// Deactivate timer
-		battleManager.timer.GetComponent<Timer>().DeactivateTimer();
+		uiHudManager.DeactivateTimer();
 
-		// Hide timer and answers
-		battleManager.timer.SetActive(false);
-		battleManager.answers.SetActive(false);
+		// Hide math canvas
+		uiHudManager.HideMathCanvas();
 
 		if (result)
 		{
@@ -79,12 +68,11 @@ public class PlayerTurn : MonoBehaviour
 
 	public void OutOfTime()
 	{
-		// Hide timer and answers
-		battleManager.timer.SetActive(false);
-		battleManager.answers.SetActive(false);
+		// Hide math canvas
+		uiHudManager.HideMathCanvas();
 
-		// Set dialogue text
-		battleManager.dialogueText.text = "Out of time";
+		// Set battle text
+		uiHudManager.SetBattleText("Out of time");
 
 		StartCoroutine(WaitThenSetEnemyTurn());
 	}
@@ -98,7 +86,7 @@ public class PlayerTurn : MonoBehaviour
 	IEnumerator WrongAnswer()
 	{
 		// Set dialogue text
-		battleManager.dialogueText.text = "Wrong answer";
+		uiHudManager.SetBattleText("Wrong answer");
 
 		// Set enemy turn after some time
 		yield return new WaitForSeconds(2f);
@@ -109,7 +97,9 @@ public class PlayerTurn : MonoBehaviour
 	{
 		// Damage the enemy
 		//battleManager.enemyUnit.TakeDamage(battleManager.wizardUnit.GetUnitSO().physicalAttack);
-		battleManager.dialogueText.text = "Great mathing!";
+
+		// Set battle text
+		uiHudManager.SetBattleText("Great mathing!");
 
 		// Wait for some time
 		yield return new WaitForSeconds(2f);
@@ -129,26 +119,12 @@ public class PlayerTurn : MonoBehaviour
 	{
 		// Heal the wizard a random amount
 		//battleManager.wizardUnit.Heal(Random.Range(5, 15));
-		battleManager.dialogueText.text = "Great mathing!";
+
+		// Set battle text
+		uiHudManager.SetBattleText("Great mathing!");
 
 		// Set enemy turn after some time
 		yield return new WaitForSeconds(2f);
 		battleManager.SetEnemyTurn();
-	}
-
-
-	public Wizard GetWizardSelected()
-	{
-		return wizardSelected;
-	}
-	/*
-	public Ability GetAbilitySelected()
-	{
-		return abilitySelected;
-	}
-	*/
-	public Unit GetEnemySelected()
-	{
-		return enemySelected;
 	}
 }

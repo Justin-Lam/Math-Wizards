@@ -1,38 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Questions : MonoBehaviour
 {
-	[SerializeField] BattleManager battleManager;
+	[SerializeField] UIHUDManager uiHudManager;
+	[SerializeField][Tooltip("Amount of time before the timer, question, and answers appear")] float waitTime;
 
 	int x;
 	int y;
 	int answer;
 
-	public void GiveMathQuestion()
+	public IEnumerator GiveMathQuestion()
 	{
-		// Show the timer and start it
-		battleManager.timer.SetActive(true);
-		StartCoroutine(battleManager.timer.GetComponent<Timer>().ActivateTimer());
+		// Show the math canvas
+		uiHudManager.ShowMathCanvas();
+
+		// Hide the question and answers
+		uiHudManager.HideTimerQuestionAnswers();
+
+		// Wait for some time
+		yield return new WaitForSeconds(waitTime);
+
+		// Show the question and answers
+		uiHudManager.ShowTimerQuestionAnswers();
 
 		// Generate the question and answer
-		//GenerateQuestion();
-		int x = Random.Range(1, 20);
-		int y = Random.Range(1, 20);
-		int answer = x + y;
+		x = Random.Range(1, 20);
+		y = Random.Range(1, 20);
+		answer = x + y;
 
 		// Display the question
-		battleManager.dialogueText.text = x + " + " + y + " = ???";
+		uiHudManager.SetQuestionText(x + " + " + y + " = ???");
 
-		// Show and set the answers
-		battleManager.answers.SetActive(true);
-		battleManager.answers.GetComponent<Answers>().SetAnswers(answer);
-	}
+		// Set the answer buttons
+		uiHudManager.SetAnswers(answer);
 
-	void GenerateQuestion()
-	{
-		
+		// Start the timer
+		uiHudManager.ActivateTimer();
 	}
 }

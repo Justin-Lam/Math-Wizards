@@ -10,7 +10,7 @@ public class Timer : MonoBehaviour
 	bool active;
     [SerializeField] Slider leftTimer;
     [SerializeField] Slider rightTimer;
-	[SerializeField] PlayerTurn playerTurn;
+	[SerializeField] PlayerTurnManager playerTurnManager;
 
     public IEnumerator ActivateTimer()
     {
@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
 		if (active)		// ran out of time
 		{
 			active = false;
-			playerTurn.OutOfTime();
+			playerTurnManager.OutOfTime();
         }
     }
 

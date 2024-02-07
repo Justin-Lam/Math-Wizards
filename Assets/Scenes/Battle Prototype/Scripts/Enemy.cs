@@ -7,12 +7,11 @@ public class Enemy : Unit
 	void OnMouseEnter()
 	// For hovering an enemy
 	{
-		// Get the Enemy Stats game object and its UnitStats
-		GameObject enemyStatsGO = FindObjectOfType<BattleManager>().enemyStats;
-		UnitStats unitStats = enemyStatsGO.GetComponent<UnitStats>();
+		// Get the UIHUD Manager
+		UIHUDManager uiHudManager = FindObjectOfType<UIHUDManager>();
 
-		// Show and update unit stats
-		enemyStatsGO.SetActive(true);
-		unitStats.UpdateDisplay(GetUnitSO(), GetCurrentHealth());
+		// Show and wizard's stats
+		uiHudManager.ShowEnemyStats();
+		uiHudManager.SetEnemyStats(unitSO, currentHealth);
 	}
 }

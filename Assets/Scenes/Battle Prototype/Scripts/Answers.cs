@@ -6,7 +6,7 @@ using UnityEngine;
 public class Answers : MonoBehaviour
 {
 	[SerializeField] int wrongAnswerMaxDifference;
-	[SerializeField] PlayerTurn playerTurn;
+	[SerializeField] PlayerTurnManager playerTurnManager;
 
 	bool answer1Result;
 	bool answer2Result;
@@ -67,18 +67,18 @@ public class Answers : MonoBehaviour
 
 	public void OnAnswer1Button()
 	{
-		playerTurn.AnswerSelected(answer1Result);
+		playerTurnManager.AnswerSelected(answer1Result);
 	}
 	public void OnAnswer2Button()
 	{
-		playerTurn.AnswerSelected(answer2Result);
+		playerTurnManager.AnswerSelected(answer2Result);
 	}
 	public void OnAnswer3Button()
 	{
-		playerTurn.AnswerSelected(answer3Result);
+		playerTurnManager.AnswerSelected(answer3Result);
 	}
 	public void OnAnswer4Button()
 	{
-		playerTurn.AnswerSelected(answer4Result);
+		playerTurnManager.AnswerSelected(answer4Result);
 	}
 }

@@ -4,26 +4,20 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class StartBattle : MonoBehaviour
+public class StartManager : MonoBehaviour
 {
     [SerializeField] BattleManager battleManager;
-    [SerializeField] GameObject wizardPrefab;
+	[SerializeField] UIHUDManager uiHudManager;
+	[SerializeField] GameObject wizardPrefab;
     [SerializeField] GameObject enemyPrefab;
 
-    public IEnumerator SetupBattle()
+    public void SetupBattle()
     {
-        // Hide UI stuff
-        battleManager.wizardStats.SetActive(false);
-		battleManager.enemyStats.SetActive(false);
-		battleManager.timer.SetActive(false);
-        battleManager.answers.SetActive(false);
-        battleManager.abilitiesPanel.SetActive(false);
-
-        // Show UI stuff
-        battleManager.dialoguePanel.SetActive(true);
-
-        // Set dialogue
-        battleManager.dialogueText.text = "BATTLE START !!!";
+        // Hide UI and HUD stuff
+        uiHudManager.HideWizardStats();
+        uiHudManager.HideEnemyStats();
+        uiHudManager.HideAbilitiesPanel();
+        uiHudManager.HideMathCanvas();
 
         // Spawn wizards
         foreach (UnitData unitData in battleManager.battleData.wizards)
@@ -40,9 +34,6 @@ public class StartBattle : MonoBehaviour
 			enemy.SetUnitSO(unitData.unit);
 			enemy.InitializeUnit();
 		}
-
-		// Wait 2 seconds
-		yield return new WaitForSeconds(2f);
 
         // Set to player turn
         battleManager.SetPlayerTurn();
