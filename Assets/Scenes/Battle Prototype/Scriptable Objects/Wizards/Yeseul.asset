@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Yeseul
   m_EditorClassIdentifier: 
   name: Yeseul
+  sprite: {fileID: 21300000, guid: 9ad8449a7eb881d43bf40c2585b7fa7b, type: 3}
+  portrait: {fileID: 21300000, guid: 306da029e3b5f6c428edc54c7e17e4ca, type: 3}
   maxHealth: 85
   physicalAttack: 15
   critChance: 0
@@ -20,5 +22,3 @@ MonoBehaviour:
   spellPower: 20
   spellBreak: 0
   spellDefense: 10
-  sprite: {fileID: 0}
-  portrait: {fileID: 0}

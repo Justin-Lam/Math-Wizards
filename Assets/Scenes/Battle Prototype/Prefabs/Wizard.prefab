@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 5403722070186266179}
   m_Layer: 0
   m_Name: Wizard
-  m_TagString: Untagged
+  m_TagString: Wizard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,7 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e238229c9baba249853df9f7a401b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitSO: {fileID: 0}
   spriteRenderer: {fileID: 7708109347859410932}
   healthBarScript: {fileID: 1059293471777446154}
 --- !u!1 &5272022523792878611

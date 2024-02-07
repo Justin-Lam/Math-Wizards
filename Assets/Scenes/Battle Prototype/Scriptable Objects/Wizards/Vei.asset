@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Vei
   m_EditorClassIdentifier: 
   name: Vei
+  sprite: {fileID: 21300000, guid: 35233a022c7c54a479656571a7058bd0, type: 3}
+  portrait: {fileID: 21300000, guid: 13411e688cf160e4396d8cf11a06b340, type: 3}
   maxHealth: 65
   physicalAttack: 10
   critChance: 0
@@ -20,5 +22,3 @@ MonoBehaviour:
   spellPower: 25
   spellBreak: 0
   spellDefense: 10
-  sprite: {fileID: 21300000, guid: 35233a022c7c54a479656571a7058bd0, type: 3}
-  portrait: {fileID: 21300000, guid: 13411e688cf160e4396d8cf11a06b340, type: 3}

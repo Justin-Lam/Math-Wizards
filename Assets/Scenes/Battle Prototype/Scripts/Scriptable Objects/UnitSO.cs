@@ -7,6 +7,9 @@ public class UnitSO : ScriptableObject
 {
 	public new string name;
 
+	public Sprite sprite;
+	public Sprite portrait;
+
 	public int maxHealth;
 	public int physicalAttack;
 	public int critChance;
@@ -14,7 +17,4 @@ public class UnitSO : ScriptableObject
 	public int spellPower;
 	public int spellBreak;
 	public int spellDefense;
-
-	public Sprite sprite;
-	public Sprite portrait;
 }

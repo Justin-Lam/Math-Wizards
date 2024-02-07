@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 3389756080872577329}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -326,7 +326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222400fc4a6d48d4f8598fde19e9703c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitSO: {fileID: 0}
   spriteRenderer: {fileID: 4343221785522803263}
   healthBarScript: {fileID: 4673199427986660710}
 --- !u!1 &6746577530632403147
