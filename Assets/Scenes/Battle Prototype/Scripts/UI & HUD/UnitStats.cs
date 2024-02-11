@@ -17,18 +17,18 @@ public class UnitStats : MonoBehaviour
 	[SerializeField] TextMeshProUGUI spellBreakText;
 	[SerializeField] TextMeshProUGUI spellDefenseText;
 
-	public void UpdateDisplay(UnitSO unitSO, float currentHealth)
+	public void UpdateDisplay(Unit unit)
     {
 		// Set variables
-		portrait.sprite = unitSO.portrait;
-		nameText.text = unitSO.name;
-		healthBar.value = currentHealth / unitSO.maxHealth;
-		healthText.text = currentHealth + " / " + unitSO.maxHealth;
-		physicalAttackText.text = unitSO.physicalAttack.ToString();
-		critChanceText.text = unitSO.critChance.ToString();
-		armorText.text = unitSO.armor.ToString();
-		spellPowerText.text = unitSO.spellPower.ToString();
-		spellBreakText.text = unitSO.spellBreak.ToString();
-		spellDefenseText.text = unitSO.spellDefense.ToString();
+		portrait.sprite = unit.Portrait;
+		nameText.text = unit.Name;
+		healthBar.value = unit.CurrentHealth / unit.MaxHealth;
+		healthText.text = unit.CurrentHealth + " / " + unit.MaxHealth;
+		physicalAttackText.text = unit.PhysicalAttack.ToString();
+		critChanceText.text = unit.CritChance.ToString();
+		armorText.text = unit.Armor.ToString();
+		spellPowerText.text = unit.SpellPower.ToString();
+		spellBreakText.text = unit.SpellBreak.ToString();
+		spellDefenseText.text = unit.SpellDefense.ToString();
     }
 }

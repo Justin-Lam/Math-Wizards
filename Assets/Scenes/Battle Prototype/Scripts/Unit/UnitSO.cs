@@ -17,4 +17,7 @@ public class UnitSO : ScriptableObject
 	public int spellPower;
 	public int spellBreak;
 	public int spellDefense;
+
+	// public PassiveAbilitySO passiveAbility;
+	public AbilitySO[] abilities = new AbilitySO[4];
 }

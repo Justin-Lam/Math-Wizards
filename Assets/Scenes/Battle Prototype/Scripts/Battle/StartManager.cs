@@ -8,6 +8,7 @@ public class StartManager : MonoBehaviour
 {
     [SerializeField] BattleManager battleManager;
 	[SerializeField] UIHUDManager uiHudManager;
+    [SerializeField] MathManager mathManager;
 	[SerializeField] GameObject wizardPrefab;
     [SerializeField] GameObject enemyPrefab;
 
@@ -17,7 +18,7 @@ public class StartManager : MonoBehaviour
         uiHudManager.HideWizardStats();
         uiHudManager.HideEnemyStats();
         uiHudManager.HideAbilitiesPanel();
-        uiHudManager.HideMathCanvas();
+        mathManager.HideMathCanvas();
 
         // Spawn wizards
         foreach (UnitData unitData in battleManager.battleData.wizards)

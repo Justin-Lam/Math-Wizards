@@ -22,3 +22,8 @@ MonoBehaviour:
   spellPower: 20
   spellBreak: 0
   spellDefense: 10
+  abilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

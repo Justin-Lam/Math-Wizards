@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BattleState { START, PLAYER_TURN, ENEMY_TURN, WON, LOST }
 
 public class BattleManager : MonoBehaviour
 {
+	public enum BattleState { START, PLAYER_TURN, ENEMY_TURN, WON, LOST }
+
 	[Header("Battle Data")]
 	public BattleData battleData;
 
@@ -16,7 +17,7 @@ public class BattleManager : MonoBehaviour
 	[SerializeField] WonManager wonManager;
 	[SerializeField] LostManager lostManager;
 
-	BattleState battleState;
+	BattleState state;		public BattleState State => state;
 
     void Start()
     {
@@ -25,32 +26,27 @@ public class BattleManager : MonoBehaviour
 
 	public void SetStart()
 	{
-		battleState = BattleState.START;
+		state = BattleState.START;
 		startManager.SetupBattle();
 	}
 	public void SetPlayerTurn()
 	{
-		battleState = BattleState.PLAYER_TURN;
+		state = BattleState.PLAYER_TURN;
 		playerTurnManager.SetupPlayerTurn();
 	}
 	public void SetEnemyTurn()
 	{
-		battleState = BattleState.ENEMY_TURN;
+		state = BattleState.ENEMY_TURN;
 		StartCoroutine(enemyTurnManager.SetupEnemyTurn());
 	}
 	public void SetWon()
 	{
-		battleState = BattleState.WON;
+		state = BattleState.WON;
 		wonManager.SetupWon();
 	}
 	public void SetLost()
 	{
-		battleState = BattleState.LOST;
+		state = BattleState.LOST;
 		lostManager.SetupLost();
-	}
-
-	public BattleState GetBattleState()
-	{
-		return battleState;
 	}
 }
