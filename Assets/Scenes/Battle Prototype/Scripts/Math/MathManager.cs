@@ -18,11 +18,15 @@ public class MathManager : MonoBehaviour
     [SerializeField] GameObject timerGO;
     [SerializeField] GameObject questionTextGO;
     [SerializeField] GameObject answerButtonPanelGO;
-    [SerializeField] GameObject[] answerResultTexts = new GameObject[4];
+    [SerializeField] GameObject[] answerResultTexts = new GameObject[5];        // 0. Out of Time   1. Incorrect    2. Good!    3. Great!!  4. MATH EXTRAORDINAIRE!!!
 
 	[Header("Components")]
 	[SerializeField] TextMeshProUGUI questionText;
 	[SerializeField] TextMeshProUGUI[] answerButtonTexts = new TextMeshProUGUI[4];
+
+	[Header("Designer Variables")]
+	[SerializeField][Tooltip("Getting a Good! will result in a math result multiplier of 1 - this number, whereas getting a MATH EXTRAORDINAIRE!!! will result in a math result multiplier of 1 + this number")]
+	float mathResultMultiplierRange;
 
 	[Header("Delays")]
 	[SerializeField][Tooltip("Amount of time before the timer, question, and answers appear")] float showTimerQuestionAnswersDelay;
@@ -83,13 +87,24 @@ public class MathManager : MonoBehaviour
 		if (result)		// correct answer pressed
 		{
             // Show good, great, or amazing
-            answerResultTexts[2].SetActive(true);       // "Great!"
+            answerResultTexts[2 + (int)timerScript.CorrectAnswerResult].SetActive(true);
 
             // Wait for some time
             yield return new WaitForSeconds(returnToBattleDelay);
 
-            // Activate the ability
-            playerTurnManager.ActivateAbility(1.0f);
+			// Activate the ability
+			float mathResultMultiplier = 1.0f;
+
+			if (timerScript.CorrectAnswerResult == Timer.CorrectAnswerResults.GOOD)
+			{
+				mathResultMultiplier -= mathResultMultiplierRange;
+			}
+			else if (timerScript.CorrectAnswerResult == Timer.CorrectAnswerResults.MATH_EXTRAORDINAIRE)
+			{
+				mathResultMultiplier += mathResultMultiplierRange;
+			}
+
+			playerTurnManager.ActivateAbility(mathResultMultiplier);
 
             // Hide math canvas
             mathCanvasGO.SetActive(false);
@@ -97,7 +112,7 @@ public class MathManager : MonoBehaviour
 		else			// incorrect answer pressed
 		{
 			// Show "Incorrect"
-			answerResultTexts[0].SetActive(true);
+			answerResultTexts[1].SetActive(true);
 
 			// Wait for some time
 			yield return new WaitForSeconds(returnToBattleDelay);
@@ -112,8 +127,24 @@ public class MathManager : MonoBehaviour
 
     public IEnumerator OutOfTime()
     {
-        yield return null;
-    }
+		// Hide the buttons
+		answerButtonPanelGO.SetActive(false);
+
+		// Wait for some time
+		yield return new WaitForSeconds(showAnswerResultDelay);
+
+		// Show "Out of Time"
+		answerResultTexts[0].SetActive(true);
+
+		// Wait for some time
+		yield return new WaitForSeconds(returnToBattleDelay);
+
+		// Subtract an action
+		playerTurnManager.subtractAction();
+
+		// Hide math canvas
+		mathCanvasGO.SetActive(false);
+	}
 
 
     public void HideMathCanvas() { mathCanvasGO.SetActive(false); }     // For StartManager to use when setting up the battle

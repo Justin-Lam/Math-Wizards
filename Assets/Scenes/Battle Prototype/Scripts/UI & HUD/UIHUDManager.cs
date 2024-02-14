@@ -11,6 +11,7 @@ public class UIHUDManager : MonoBehaviour
     [SerializeField] GameObject enemyStatsGO;
     [SerializeField] GameObject abilitiesPanelGO;
 
+    [SerializeField] TextMeshProUGUI actionsNumText;
     [SerializeField] TextMeshProUGUI battleText;
     [SerializeField] UnitStats wizardStats;
     [SerializeField] UnitStats enemyStats;
@@ -23,6 +24,7 @@ public class UIHUDManager : MonoBehaviour
     public void ShowAbilitiesPanel() { abilitiesPanelGO.SetActive(true); }
     public void HideAbilitiesPanel() { abilitiesPanelGO.SetActive(false); }
 
+    public void SetActionsNumText(string text) { actionsNumText.text = text; }
     public void SetBattleText(string text) {  battleText.text = text; }
     public void SetWizardStats(Unit unit) { wizardStats.UpdateDisplay(unit); }
     public void SetEnemyStats(Unit unit) { enemyStats.UpdateDisplay(unit); }

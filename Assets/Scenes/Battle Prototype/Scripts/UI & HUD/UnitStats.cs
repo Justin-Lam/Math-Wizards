@@ -23,12 +23,12 @@ public class UnitStats : MonoBehaviour
 		portrait.sprite = unit.Portrait;
 		nameText.text = unit.Name;
 		healthBar.value = unit.CurrentHealth / unit.MaxHealth;
-		healthText.text = unit.CurrentHealth + " / " + unit.MaxHealth;
-		physicalAttackText.text = unit.PhysicalAttack.ToString();
-		critChanceText.text = unit.CritChance.ToString();
-		armorText.text = unit.Armor.ToString();
-		spellPowerText.text = unit.SpellPower.ToString();
-		spellBreakText.text = unit.SpellBreak.ToString();
-		spellDefenseText.text = unit.SpellDefense.ToString();
+		healthText.text = Mathf.Ceil(unit.CurrentHealth) + " / " + Mathf.Ceil(unit.MaxHealth);
+		physicalAttackText.text = Mathf.Ceil(unit.PhysicalAttack).ToString();
+		critChanceText.text = Mathf.Ceil(unit.CritChance).ToString();
+		armorText.text = Mathf.Ceil(unit.Armor).ToString();
+		spellPowerText.text = Mathf.Ceil(unit.SpellPower).ToString();
+		spellBreakText.text = Mathf.Ceil(unit.SpellBreak).ToString();
+		spellDefenseText.text = Mathf.Ceil(unit.SpellDefense).ToString();
     }
 }

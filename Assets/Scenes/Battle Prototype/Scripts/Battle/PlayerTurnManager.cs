@@ -12,18 +12,25 @@ public class PlayerTurnManager : MonoBehaviour
 
 	Unit selectedWizard;									public Unit SelectedWizard => selectedWizard;
 	AbilitySO selectedAbilitySO;							public AbilitySO SelectedAbilitySO => selectedAbilitySO;
-	ActivateAbilityDelegate selectedAbilityDelegate;
 	Unit selectedTarget;									public Unit SelectedTarget => selectedTarget;
 
 	int actionsRemaining;
 
 	public void SetupPlayerTurn()
 	{
+		// Initialize all selected variables to null
+		selectedWizard = null;
+		selectedAbilitySO = null;
+		selectedTarget = null;
+
 		// Set actionsRemaining
 		actionsRemaining = 5;
 
-		// Display Actions Remaining
-		uiHudManager.SetBattleText(actionsRemaining + " Actions Remaining");
+		// Display actions remaining
+		uiHudManager.SetActionsNumText(actionsRemaining.ToString());
+
+		// Display "Select a wizard"
+		uiHudManager.SetBattleText("Select a wizard");
     }
 
 	public void WizardSelected(Unit wizard)
@@ -36,6 +43,9 @@ public class PlayerTurnManager : MonoBehaviour
 
 		// Set ability buttons
 		uiHudManager.SetAbilityButtons(wizard);
+
+		// Display "Choose an ability"
+		uiHudManager.SetBattleText("Choose an ability");
 	}
 
 	public void OnAbility1Selected() { AbilitySelected(0); }
@@ -50,11 +60,11 @@ public class PlayerTurnManager : MonoBehaviour
 		// Set selectedAbilitySO
 		selectedAbilitySO = selectedWizard.Abilities[abiltyNum];
 
-		// Set selectedAbilityDelegate
-		selectedAbilityDelegate = selectedAbilitySO.Activate;
-
 		// Give a math exercise if the ability is untargeted
 		if (selectedAbilitySO.TargetType == AbilitySO.Targets.NONE) { StartCoroutine(mathManager.GiveMathExercise()); }
+
+		// Display "Pick a target" if the ability is targeted
+		else { uiHudManager.SetBattleText("Pick a target"); }
 	}
 
 	public void TargetSelected(Unit target)
@@ -69,7 +79,7 @@ public class PlayerTurnManager : MonoBehaviour
 	public void ActivateAbility(float mathResultMultiplier)
 	{
 		// Activate the ability
-		selectedAbilityDelegate(selectedWizard, selectedTarget, mathResultMultiplier);
+		selectedAbilitySO.Activate(selectedWizard, selectedTarget, mathResultMultiplier);
 
 		// Subtract an action
 		subtractAction();
@@ -81,20 +91,22 @@ public class PlayerTurnManager : MonoBehaviour
 		// Reset all selected things
 		selectedWizard = null;
 		selectedAbilitySO = null;
-		selectedAbilityDelegate = null;
 		selectedTarget = null;
 
 		// Subtract an action
 		actionsRemaining--;
 
 		// Display actions remaining
-		uiHudManager.SetBattleText(actionsRemaining + " Actions Remaining");
+		uiHudManager.SetActionsNumText(actionsRemaining.ToString());
 
-		// Set to enemy turn if 0 actions remaining
-		if (actionsRemaining == 0)
-		{
-			StartCoroutine(WaitThenSetEnemyTurn());
-		}
+		// Display "Select a wizard"
+		uiHudManager.SetBattleText("Select a wizard");
+
+		// Set to enemy turn if there are 0 actions remaining
+		if (actionsRemaining == 0) { StartCoroutine(WaitThenSetEnemyTurn()); }
+		
+		// Display "Select a wizard" if there are actions remaining
+		else { uiHudManager.SetBattleText("Select a wizard"); }
 	}
 
 	IEnumerator WaitThenSetEnemyTurn()
