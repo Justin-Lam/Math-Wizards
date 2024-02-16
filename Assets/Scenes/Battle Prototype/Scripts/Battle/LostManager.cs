@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class LostManager : MonoBehaviour
 {
-	[SerializeField] UIHUDManager uiHudManager;
+	[SerializeField] BattleManager battleManager;
 
 	public void SetupLost()
 	{
 		// Set dialogue
-		uiHudManager.SetBattleText("You were defeated...");
+		battleManager.SetBattleText("You were defeated...");
 	}
 }

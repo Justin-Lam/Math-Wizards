@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c289d2258571024fadc3ac0cf43a034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiHudManager: {fileID: 166666056}
+  battleManager: {fileID: 0}
 --- !u!114 &133438146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2479f6ca5bc5834c893d3828914081c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiHudManager: {fileID: 166666056}
+  battleManager: {fileID: 0}
 --- !u!114 &133438147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1078,7 +1078,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleManager: {fileID: 133438150}
-  uiHudManager: {fileID: 166666056}
 --- !u!114 &133438148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1091,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleManager: {fileID: 133438150}
-  uiHudManager: {fileID: 166666056}
   mathManager: {fileID: 880106402}
 --- !u!114 &133438149
 MonoBehaviour:
@@ -1107,7 +1105,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleManager: {fileID: 133438150}
-  uiHudManager: {fileID: 166666056}
   mathManager: {fileID: 880106402}
   wizardPrefab: {fileID: 4700354737839252297, guid: 67321f03d82a99d40988bc556c3f4a44, type: 3}
   enemyPrefab: {fileID: 5976870450947119278, guid: fd33a5060f8a23443a1855133b4d1e9b, type: 3}
@@ -1129,6 +1126,14 @@ MonoBehaviour:
   enemyTurnManager: {fileID: 133438147}
   wonManager: {fileID: 133438146}
   lostManager: {fileID: 133438145}
+  wizardStatsGO: {fileID: 1496506618}
+  enemyStatsGO: {fileID: 478525593}
+  abilitiesPanelGO: {fileID: 88723739}
+  actionsNumText: {fileID: 2105179456}
+  battleText: {fileID: 1586823690}
+  wizardStats: {fileID: 1496506620}
+  enemyStats: {fileID: 478525595}
+  abilityButtons: {fileID: 88723743}
 --- !u!114 &133438152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,58 +1427,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146382629}
   m_CullTransparentMesh: 1
---- !u!1 &166666055
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 166666057}
-  - component: {fileID: 166666056}
-  m_Layer: 0
-  m_Name: UI & HUD Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &166666056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166666055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d1be9f049378e4e946836613f5d4f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wizardStatsGO: {fileID: 1496506618}
-  enemyStatsGO: {fileID: 478525593}
-  abilitiesPanelGO: {fileID: 88723739}
-  actionsNumText: {fileID: 2105179456}
-  battleText: {fileID: 1586823690}
-  wizardStats: {fileID: 1496506620}
-  enemyStats: {fileID: 478525595}
-  abilityButtons: {fileID: 88723743}
---- !u!4 &166666057
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 166666055}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &177318711
 GameObject:
   m_ObjectHideFlags: 0
@@ -13069,7 +13022,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 166666057}
   - {fileID: 133438144}
   - {fileID: 880106403}
   - {fileID: 519420032}

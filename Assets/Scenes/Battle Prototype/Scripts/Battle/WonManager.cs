@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WonManager : MonoBehaviour
 {
-	[SerializeField] UIHUDManager uiHudManager;
+	[SerializeField] BattleManager battleManager;
 
 	public void SetupWon()
     {
 		// Set dialogue
-		uiHudManager.SetBattleText("You won the battle!");
+		battleManager.SetBattleText("You won the battle!");
 	}
 }

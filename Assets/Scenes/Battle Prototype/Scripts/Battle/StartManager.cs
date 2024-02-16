@@ -7,17 +7,16 @@ using UnityEngine;
 public class StartManager : MonoBehaviour
 {
     [SerializeField] BattleManager battleManager;
-	[SerializeField] UIHUDManager uiHudManager;
     [SerializeField] MathManager mathManager;
 	[SerializeField] GameObject wizardPrefab;
     [SerializeField] GameObject enemyPrefab;
 
     public void SetupBattle()
     {
-        // Hide UI and HUD stuff
-        uiHudManager.HideWizardStats();
-        uiHudManager.HideEnemyStats();
-        uiHudManager.HideAbilitiesPanel();
+		// Hide UI and HUD stuff
+		battleManager.HideWizardStats();
+		battleManager.HideEnemyStats();
+		battleManager.HideAbilitiesPanel();
         mathManager.HideMathCanvas();
 
         // Spawn wizards

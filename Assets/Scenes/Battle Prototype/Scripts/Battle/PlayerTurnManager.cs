@@ -7,7 +7,6 @@ public class PlayerTurnManager : MonoBehaviour
 	delegate void ActivateAbilityDelegate(Unit user, Unit target, float mathResultMultiplier);
 
 	[SerializeField] BattleManager battleManager;
-	[SerializeField] UIHUDManager uiHudManager;
 	[SerializeField] MathManager mathManager;
 
 	Unit selectedWizard;									public Unit SelectedWizard => selectedWizard;
@@ -27,10 +26,10 @@ public class PlayerTurnManager : MonoBehaviour
 		actionsRemaining = 5;
 
 		// Display actions remaining
-		uiHudManager.SetActionsNumText(actionsRemaining.ToString());
+		battleManager.SetActionsNumText(actionsRemaining.ToString());
 
 		// Display "Select a wizard"
-		uiHudManager.SetBattleText("Select a wizard");
+		battleManager.SetBattleText("Select a wizard");
     }
 
 	public void WizardSelected(Unit wizard)
@@ -39,13 +38,13 @@ public class PlayerTurnManager : MonoBehaviour
 		selectedWizard = wizard;
 
 		// Show abilities panel
-		uiHudManager.ShowAbilitiesPanel();
+		battleManager.ShowAbilitiesPanel();
 
 		// Set ability buttons
-		uiHudManager.SetAbilityButtons(wizard);
+		battleManager.SetAbilityButtons(wizard);
 
 		// Display "Choose an ability"
-		uiHudManager.SetBattleText("Choose an ability");
+		battleManager.SetBattleText("Choose an ability");
 	}
 
 	public void OnAbility1Selected() { AbilitySelected(0); }
@@ -55,7 +54,7 @@ public class PlayerTurnManager : MonoBehaviour
 	void AbilitySelected(int abiltyNum)
 	{
 		// Hide the abilities panel
-		uiHudManager.HideAbilitiesPanel();
+		battleManager.HideAbilitiesPanel();
 
 		// Set selectedAbilitySO
 		selectedAbilitySO = selectedWizard.Abilities[abiltyNum];
@@ -64,7 +63,7 @@ public class PlayerTurnManager : MonoBehaviour
 		if (selectedAbilitySO.TargetType == AbilitySO.Targets.NONE) { StartCoroutine(mathManager.GiveMathExercise()); }
 
 		// Display "Pick a target" if the ability is targeted
-		else { uiHudManager.SetBattleText("Pick a target"); }
+		else { battleManager.SetBattleText("Pick a target"); }
 	}
 
 	public void TargetSelected(Unit target)
@@ -97,16 +96,16 @@ public class PlayerTurnManager : MonoBehaviour
 		actionsRemaining--;
 
 		// Display actions remaining
-		uiHudManager.SetActionsNumText(actionsRemaining.ToString());
+		battleManager.SetActionsNumText(actionsRemaining.ToString());
 
 		// Display "Select a wizard"
-		uiHudManager.SetBattleText("Select a wizard");
+		battleManager.SetBattleText("Select a wizard");
 
 		// Set to enemy turn if there are 0 actions remaining
 		if (actionsRemaining == 0) { StartCoroutine(WaitThenSetEnemyTurn()); }
 		
 		// Display "Select a wizard" if there are actions remaining
-		else { uiHudManager.SetBattleText("Select a wizard"); }
+		else { battleManager.SetBattleText("Select a wizard"); }
 	}
 
 	IEnumerator WaitThenSetEnemyTurn()
@@ -115,105 +114,4 @@ public class PlayerTurnManager : MonoBehaviour
 		yield return new WaitForSeconds(2f);
 		battleManager.SetEnemyTurn();
 	}
-
-
-
-	/*
-	public void OnAttackButton()
-    {
-        // Record the ability
-        action = "attack";
-
-		// Hide abilities panel
-		uiHudManager.HideAbilitiesPanel();
-
-		// Start a math exercise
-		StartCoroutine(mathManager.ExecuteMathExercise());
-    }
-    public void OnHealButton()
-    {
-        // Record the ability
-        action = "heal";
-
-		// Hide abilities panel
-		uiHudManager.HideAbilitiesPanel();
-
-		// Give a math question
-		StartCoroutine(mathManager.ExecuteMathExercise());
-	}
-
-	public void AnswerSelected(bool result)
-    {
-		// Deactivate timer
-		//uiHudManager.DeactivateTimer();
-
-		if (result)
-		{
-			if (action == "attack")
-				StartCoroutine(PlayerAttack());
-			else if (action == "heal")
-				StartCoroutine(PlayerHeal());
-		}
-		else
-		{
-			StartCoroutine(WrongAnswer());
-		}
-	}
-
-	public void OutOfTime()
-	{
-		// Set battle text
-		uiHudManager.SetBattleText("Out of time");
-
-		StartCoroutine(WaitThenSetEnemyTurn());
-	}
-
-
-	IEnumerator WrongAnswer()
-	{
-		// Set dialogue text
-		uiHudManager.SetBattleText("Wrong answer");
-
-		// Set enemy turn after some time
-		yield return new WaitForSeconds(2f);
-		battleManager.SetEnemyTurn();
-	}
-
-	IEnumerator PlayerAttack()
-	{
-		// Damage the enemy
-		//battleManager.enemyUnit.TakeDamage(battleManager.wizardUnit.GetUnitSO().physicalAttack);
-
-		// Set battle text
-		uiHudManager.SetBattleText("Great mathing!");
-
-		// Wait for some time
-		yield return new WaitForSeconds(2f);
-
-		// Change battle state depending on status of the enemy
-		if (true)//battleManager.enemyUnit.IsAlive())
-		{
-			battleManager.SetEnemyTurn();
-		}
-		else
-		{
-			battleManager.SetWon();
-		}
-	}
-
-	IEnumerator PlayerHeal()
-	{
-		// Heal the wizard a random amount
-		//battleManager.wizardUnit.Heal(Random.Range(5, 15));
-
-		// Set battle text
-		uiHudManager.SetBattleText("Great mathing!");
-
-		// Set enemy turn after some time
-		yield return new WaitForSeconds(2f);
-		battleManager.SetEnemyTurn();
-	}
-
-
-	*/
 }

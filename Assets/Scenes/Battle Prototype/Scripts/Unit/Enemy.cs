@@ -4,37 +4,34 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+	BattleManager battleManager;
+	PlayerTurnManager playerTurnManager;
+
+	void Start()
+	{
+		battleManager = FindObjectOfType<BattleManager>();
+		playerTurnManager = FindObjectOfType<PlayerTurnManager>();
+	}
+
 	void OnMouseEnter()
 	// Show enemy's stats in HUD
 	{
-		// Get the UIHUD Manager
-		UIHUDManager uiHudManager = FindObjectOfType<UIHUDManager>();
-
 		// Show and set enemy's stats
-		uiHudManager.ShowEnemyStats();
-		uiHudManager.SetEnemyStats(this);
+		battleManager.ShowEnemyStats();
+		battleManager.SetEnemyStats(this);
 	}
 	void OnMouseExit()
 	// Hide enemy's stats in HUD
 	{
-		// Get the UIHUD Manager
-		UIHUDManager uiHudManager = FindObjectOfType<UIHUDManager>();
-
 		// Hide enemy's stats
-		uiHudManager.HideEnemyStats();
+		battleManager.HideEnemyStats();
 	}
 	void OnMouseDown()
 	// Select the enemy as the target of an ability
 	{
-		// Get BattleManager
-		BattleManager battleManager = FindObjectOfType<BattleManager>();
-
 		// Check that it's the player's turn
 		if (battleManager.State == BattleManager.BattleState.PLAYER_TURN)
 		{
-			// Get PlayerTurnManager
-			PlayerTurnManager playerTurnManager = FindObjectOfType<PlayerTurnManager>();
-
 			// Select the enemy as the target of an ability
 			if (playerTurnManager.SelectedWizard != null && playerTurnManager.SelectedTarget == null && playerTurnManager.SelectedAbilitySO.TargetType == AbilitySO.Targets.ENEMY)
 			{
