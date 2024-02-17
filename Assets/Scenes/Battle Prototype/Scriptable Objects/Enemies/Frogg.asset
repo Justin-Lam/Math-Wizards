@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Frogg
   m_EditorClassIdentifier: 
   name: Frogg
+  sprite: {fileID: 21300000, guid: 376d427a8d0410b4aa677872a03a5e47, type: 3}
+  portrait: {fileID: 21300000, guid: 98f3ecb4caf16de4fa0ff95673686807, type: 3}
   maxHealth: 15
   physicalAttack: 10
   critChance: 0
@@ -20,5 +22,6 @@ MonoBehaviour:
   spellPower: 0
   spellBreak: 0
   spellDefense: 5
-  sprite: {fileID: 21300000, guid: 376d427a8d0410b4aa677872a03a5e47, type: 3}
-  portrait: {fileID: 21300000, guid: 98f3ecb4caf16de4fa0ff95673686807, type: 3}
+  abilities:
+  - {fileID: 11400000, guid: a62f9d6cadcb0e448917032b4a977340, type: 2}
+  aiSO: {fileID: 11400000, guid: 0f57184c9bf49b543bf59c7ac93ac3e7, type: 2}

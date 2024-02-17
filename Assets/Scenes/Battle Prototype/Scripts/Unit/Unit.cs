@@ -7,32 +7,41 @@ public class Unit : MonoBehaviour
 {
 	[SerializeField] SpriteRenderer spriteRenderer;
 	[SerializeField] Slider healthBar;
-	UnitSO unitSO;
+	protected UnitSO unitSO;
 
-	float maxHealth;			public float MaxHealth => unitSO.maxHealth;
+	float maxHealth;			public float MaxHealth => maxHealth;
 	float currentHealth;		public float CurrentHealth => currentHealth;
 	float physicalAttack;		public float PhysicalAttack => physicalAttack;
-	float critChance;			public float CritChance => unitSO.critChance;
-	float armor;				public float Armor => unitSO.armor;
-	float spellPower;			public float SpellPower => unitSO.spellPower;
-	float spellBreak;			public float SpellBreak => unitSO.spellBreak;
-	float spellDefense;			public float SpellDefense => unitSO.spellDefense;
+	float critChance;			public float CritChance => critChance;
+	float armor;				public float Armor => armor;
+	float spellPower;			public float SpellPower => spellPower;
+	float spellBreak;			public float SpellBreak => spellBreak;
+	float spellDefense;			public float SpellDefense => spellDefense;
 
 
-	public void InitializeUnit()
+	public virtual void InitializeUnit(UnitSO inputUnitSO, bool isEnemy)
     {
+		// Set unitSO
+		unitSO = inputUnitSO;
+
+		// Set abilities' user
+		foreach (AbilitySO abilitySO in unitSO.Abilities) { abilitySO.SetUser(this); }
+
+		// Set AI if the unit is an enemy
+		if (isEnemy) { unitSO.AISO.SetUser(this); }
+
 		// Set stats
-		maxHealth = unitSO.maxHealth;
-		currentHealth = unitSO.maxHealth;
-		physicalAttack = unitSO.physicalAttack;
-		critChance = unitSO.critChance;
-		armor = unitSO.armor;
-		spellPower = unitSO.spellPower;
-		spellBreak = unitSO.spellBreak;
-		spellDefense = unitSO.spellDefense;
+		maxHealth = unitSO.MaxHealth;
+		currentHealth = unitSO.MaxHealth;
+		physicalAttack = unitSO.PhysicalAttack;
+		critChance = unitSO.CritChance;
+		armor = unitSO.Armor;
+		spellPower = unitSO.SpellPower;
+		spellBreak = unitSO.SpellBreak;
+		spellDefense = unitSO.SpellDefense;
 
 		// Set sprite
-		spriteRenderer.sprite = unitSO.sprite;
+		spriteRenderer.sprite = unitSO.Sprite;
 
 		// Set health bar
 		UpdateHealthBar();
@@ -40,7 +49,7 @@ public class Unit : MonoBehaviour
 
 	void UpdateHealthBar()
 	{
-		healthBar.value = currentHealth / unitSO.maxHealth;
+		healthBar.value = currentHealth / maxHealth;
 	}
 
 	public void TakePhysicalDamage(float incomingDamage)
@@ -63,13 +72,12 @@ public class Unit : MonoBehaviour
 
 
 	// Other Getters
-	public string Name => unitSO.name;
+	public string Name => unitSO.Name;
 
-	public Sprite Sprite => unitSO.sprite;
-	public Sprite Portrait => unitSO.portrait;
+	public Sprite Sprite => unitSO.Sprite;
+	public Sprite Portrait => unitSO.Portrait;
 
-	public AbilitySO[] Abilities => unitSO.abilities;
+	public AbilitySO[] Abilities => unitSO.Abilities;
 
-	// Setters
-	public void SetUnitSO(UnitSO input) { unitSO = input; }
+	public EnemyAISO AISO => unitSO.AISO;
 }

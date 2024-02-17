@@ -6,7 +6,7 @@ using UnityEngine;
 public class UnitData
 {
 	public UnitSO unit;
-	public GameObject slot;
+	public int slot;
 }
 
 [System.Serializable]

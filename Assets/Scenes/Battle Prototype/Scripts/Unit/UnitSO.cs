@@ -5,19 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Unit", menuName = "Unit")]
 public class UnitSO : ScriptableObject
 {
-	public new string name;
+	[SerializeField] new string name;					public string Name => name;
 
-	public Sprite sprite;
-	public Sprite portrait;
+	[SerializeField] Sprite sprite;						public Sprite Sprite => sprite;
+	[SerializeField] Sprite portrait;					public Sprite Portrait => portrait;
 
-	public int maxHealth;
-	public int physicalAttack;
-	public int critChance;
-	public int armor;
-	public int spellPower;
-	public int spellBreak;
-	public int spellDefense;
+	[SerializeField] int maxHealth;						public int MaxHealth => maxHealth;
+	[SerializeField] int physicalAttack;				public int PhysicalAttack => physicalAttack;
+	[SerializeField] int critChance;					public int CritChance => critChance;
+	[SerializeField] int armor;							public int Armor => armor;
+	[SerializeField] int spellPower;					public int SpellPower => spellPower;
+	[SerializeField] int spellBreak;					public int SpellBreak => spellBreak;
+	[SerializeField] int spellDefense;					public int SpellDefense => spellDefense;
 
 	// public PassiveAbilitySO passiveAbility;
-	public AbilitySO[] abilities = new AbilitySO[4];
+	[SerializeField] AbilitySO[] abilities;				public AbilitySO[] Abilities => abilities;
+
+	[SerializeField] EnemyAISO aiSO;					public EnemyAISO AISO => aiSO;
 }

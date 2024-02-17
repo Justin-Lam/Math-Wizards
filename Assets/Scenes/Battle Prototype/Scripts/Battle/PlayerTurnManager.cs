@@ -78,7 +78,12 @@ public class PlayerTurnManager : MonoBehaviour
 	public void ActivateAbility(float mathResultMultiplier)
 	{
 		// Activate the ability
-		selectedAbilitySO.Activate(selectedWizard, selectedTarget, mathResultMultiplier);
+		selectedAbilitySO.Activate(selectedTarget, mathResultMultiplier);
+
+		// Kill any enemies that died (kill = remove from list and hide)
+		List<Unit> deadEnemies = battleManager.aliveEnemies.FindAll(enemy => enemy.CurrentHealth <= 0);		// save the enemies that died so we can hide them later
+		battleManager.aliveEnemies.RemoveAll(enemy => enemy.CurrentHealth <= 0);							// remove
+		foreach (Unit enemy in deadEnemies) { enemy.gameObject.SetActive(false); }							// hide
 
 		// Subtract an action
 		subtractAction();
@@ -98,14 +103,29 @@ public class PlayerTurnManager : MonoBehaviour
 		// Display actions remaining
 		battleManager.SetActionsNumText(actionsRemaining.ToString());
 
-		// Display "Select a wizard"
-		battleManager.SetBattleText("Select a wizard");
+		// Check if need to change state depending on the state of the enemies
+		if (battleManager.aliveEnemies.Count > 0)		// there are enemies alive 
+		{
+			if (actionsRemaining > 0)					// there are actions remaining, wait for next player action
+			{
+				// Display "Select a wizard"
+				battleManager.SetBattleText("Select a wizard");
+			}
+			else										// no actions remaining, set to enemy turn
+			{
+				// Clear battle text
+				battleManager.SetBattleText("");
 
-		// Set to enemy turn if there are 0 actions remaining
-		if (actionsRemaining == 0) { StartCoroutine(WaitThenSetEnemyTurn()); }
-		
-		// Display "Select a wizard" if there are actions remaining
-		else { battleManager.SetBattleText("Select a wizard"); }
+				StartCoroutine(WaitThenSetEnemyTurn());
+			}
+		}
+		else											// all enemies have died, set to won
+		{
+			// Clear battle text
+			battleManager.SetBattleText("");
+
+			StartCoroutine(WaitThenSetWon());
+		}
 	}
 
 	IEnumerator WaitThenSetEnemyTurn()
@@ -113,5 +133,12 @@ public class PlayerTurnManager : MonoBehaviour
 		// Set enemy turn after some time
 		yield return new WaitForSeconds(2f);
 		battleManager.SetEnemyTurn();
+	}
+
+	IEnumerator WaitThenSetWon()
+	{
+		// Set won after some time
+		yield return new WaitForSeconds(2f);
+		battleManager.SetWon();
 	}
 }

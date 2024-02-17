@@ -21,7 +21,7 @@ public class UnitStats : MonoBehaviour
     {
 		// Set variables
 		portrait.sprite = unit.Portrait;
-		nameText.text = unit.Name;
+		nameText.text = "Lv. 1 " + unit.Name;
 		healthBar.value = unit.CurrentHealth / unit.MaxHealth;
 		healthText.text = Mathf.Ceil(unit.CurrentHealth) + " / " + Mathf.Ceil(unit.MaxHealth);
 		physicalAttackText.text = Mathf.Ceil(unit.PhysicalAttack).ToString();
