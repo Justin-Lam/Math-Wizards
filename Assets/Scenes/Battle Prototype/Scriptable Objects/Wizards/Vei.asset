@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0909fb5151945e4fae7ff48f6293979, type: 3}
+  m_Script: {fileID: 11500000, guid: c6caf5e17a1a61242a712e5aff3de2a5, type: 3}
   m_Name: Vei
   m_EditorClassIdentifier: 
   name: Vei
@@ -24,6 +24,6 @@ MonoBehaviour:
   spellDefense: 10
   abilities:
   - {fileID: 11400000, guid: 7e29aacb519ca0d4d9044e1361bc35fe, type: 2}
-  - {fileID: 11400000, guid: c496aa68cbbf4e54798c7ce08c90b661, type: 2}
-  - {fileID: 11400000, guid: c496aa68cbbf4e54798c7ce08c90b661, type: 2}
-  - {fileID: 11400000, guid: c496aa68cbbf4e54798c7ce08c90b661, type: 2}
+  - {fileID: 11400000, guid: 8ec1a58d6b4439b449b1a29feec0a7cf, type: 2}
+  - {fileID: 11400000, guid: 1157375525d61f54e8aecedc3f4f35de, type: 2}
+  - {fileID: 11400000, guid: 4e390cbd6d32b294eaccbd048c68f55f, type: 2}

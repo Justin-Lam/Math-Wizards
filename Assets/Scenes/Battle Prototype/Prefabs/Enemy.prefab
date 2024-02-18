@@ -243,7 +243,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6120816158973718891}
+  - component: {fileID: 2986337150536055738}
   - component: {fileID: 1007633523683737567}
+  - component: {fileID: 5471545284346157259}
   - component: {fileID: 3389756080872577329}
   m_Layer: 0
   m_Name: Enemy
@@ -269,6 +271,20 @@ Transform:
   - {fileID: 6997226749603677624}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2986337150536055738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976870450947119278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eceb762b48fc14c809475452b99898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4343221785522803263}
+  healthBar: {fileID: 6520781176271499014}
 --- !u!61 &1007633523683737567
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -314,6 +330,51 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.25, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &5471545284346157259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976870450947119278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3389756080872577329}
+          m_TargetAssemblyTypeName: EnemyInteract, Assembly-CSharp
+          m_MethodName: OnHovered
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3389756080872577329}
+          m_TargetAssemblyTypeName: EnemyInteract, Assembly-CSharp
+          m_MethodName: OnClicked
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &3389756080872577329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,8 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222400fc4a6d48d4f8598fde19e9703c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 4343221785522803263}
-  healthBar: {fileID: 6520781176271499014}
 --- !u!1 &6746577530632403147
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +523,6 @@ GameObject:
   - component: {fileID: 6997226749603677624}
   - component: {fileID: 5108764207145230779}
   - component: {fileID: 1736444435510006141}
-  - component: {fileID: 9152440850172601556}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -538,20 +596,3 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &9152440850172601556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627472218348737729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295

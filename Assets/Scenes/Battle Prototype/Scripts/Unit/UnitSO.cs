@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Unit", menuName = "Unit")]
 public class UnitSO : ScriptableObject
 {
 	[SerializeField] new string name;					public string Name => name;
@@ -20,6 +19,4 @@ public class UnitSO : ScriptableObject
 
 	// public PassiveAbilitySO passiveAbility;
 	[SerializeField] AbilitySO[] abilities;				public AbilitySO[] Abilities => abilities;
-
-	[SerializeField] EnemyAISO aiSO;					public EnemyAISO AISO => aiSO;
 }

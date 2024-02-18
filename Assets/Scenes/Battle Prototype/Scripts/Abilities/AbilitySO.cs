@@ -7,27 +7,80 @@ public class AbilitySO : ScriptableObject
 	public enum Targets { NONE, WIZARD, ENEMY }
 
 
-	[SerializeField] new string name;
+	[HideInInspector] public Unit user;     // the unit that possess this ability
+
+
+	[SerializeField] new string name;		public string Name => name;
+	[SerializeField] Targets targetType;	public Targets TargetType => targetType;
+	[SerializeField] Color buttonColor;		public Color ButtonColor => buttonColor;
+	[SerializeField] int cooldown;			public int Cooldown => cooldown;
+
+
 	[SerializeField][TextArea(1, 10)][Tooltip("Description with placeholders (ex. {baseDamage}) instead of variable values")] protected string unformattedDescription;
-	[SerializeField] Targets targetType;
-	[SerializeField] Color buttonColor;
-	[SerializeField] int[] cooldowns = new int[3];
-
-	// The following are getter functions that return a field
-	// ex. Name => name means GetName() { return name; }
-	public string Name => name;
-	public virtual string GetDescription(Unit user) { return unformattedDescription; }      // returns the description with variables values instead of placeholders
-	public Targets TargetType => targetType;
-	public Color ButtonColor => buttonColor;
-	public int[] Cooldown => cooldowns;
+	public virtual string GetDescription() { return unformattedDescription; }      // returns the description with variables values instead of placeholders
 
 
-	protected Unit user;		// the unit that possess this ability
-	public void SetUser(Unit unit) { user = unit; }
-
-	
 	public virtual void Activate(float mathMultiplier) { }							// wizard ability, untargeted
-	public virtual void Activate(Unit target, float mathResultMultiplier) { }       // wizard ability, targeted
+	public virtual void Activate(Unit target, float mathMultiplier) { }				// wizard ability, targeted
 	public virtual void Activate() { }												// enemy ability, targeted
-	public virtual void Activate(Unit target) { }									// enemy ability, targeted
+	public virtual void Activate(Unit target) { }                                   // enemy ability, targeted
+
+
+	protected void DealPhysicalDamage(Unit target, float physicalAttackRatio, float mathMultiplier)			// wizard ability, targeted
+	{
+		// Calculate base damage
+		float baseDamage = user.PhysicalAttack * physicalAttackRatio;
+
+		// Loop through all buffs and debuffs to get buffDebuffMultiplier
+		float buffDebuffMultiplier = 1.0f;
+
+		// Calculate total damage
+		float totalDamage = baseDamage * buffDebuffMultiplier * mathMultiplier;
+
+		// Deal premitigatedPhysicalDamage to the target
+		target.TakePhysicalDamage(totalDamage);
+	}
+	protected void DealPhysicalDamage(Unit target, float physicalAttackRatio)                               // enemy ability, targeted
+	{
+		// Calculate base damage
+		float baseDamage = user.PhysicalAttack * physicalAttackRatio;
+
+		// Loop through all buffs and debuffs to get buffDebuffMultiplier
+		float buffDebuffMultiplier = 1.0f;
+
+		// Calculate total damage
+		float totalDamage = baseDamage * buffDebuffMultiplier;
+
+		// Deal premitigatedPhysicalDamage to the target
+		target.TakePhysicalDamage(totalDamage);
+	}
+
+	protected void Heal(Unit target, float healRatio, float mathMultiplier)									// wizard ability, targeted
+	{
+		// Calculate base heal amount
+		float baseHealAmount = user.SpellPower * healRatio;
+
+		// Loop through all buffs and debuffs to get buffDebuffMultiplier
+		float buffDebuffMultiplier = 1.0f;
+
+		// Calculate premitigated heal amount
+		float totalHealAmount = baseHealAmount * buffDebuffMultiplier * mathMultiplier;
+
+		// Heal the target
+		target.Heal(totalHealAmount);
+	}
+	protected void Heal(Unit target, float healRatio)														// enemy ability, targeted
+	{
+		// Calculate base heal amount
+		float baseHealAmount = user.SpellPower * healRatio;
+
+		// Loop through all buffs and debuffs to get buffDebuffMultiplier
+		float buffDebuffMultiplier = 1.0f;
+
+		// Calculate premitigated heal amount
+		float totalHealAmount = baseHealAmount * buffDebuffMultiplier;
+
+		// Heal the target
+		target.Heal(totalHealAmount);
+	}
 }

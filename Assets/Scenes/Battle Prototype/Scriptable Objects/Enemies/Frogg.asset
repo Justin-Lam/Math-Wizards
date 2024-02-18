@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0909fb5151945e4fae7ff48f6293979, type: 3}
+  m_Script: {fileID: 11500000, guid: 5661e038b501a594fb77cb7d63bd9ea8, type: 3}
   m_Name: Frogg
   m_EditorClassIdentifier: 
   name: Frogg
@@ -24,4 +24,4 @@ MonoBehaviour:
   spellDefense: 5
   abilities:
   - {fileID: 11400000, guid: a62f9d6cadcb0e448917032b4a977340, type: 2}
-  aiSO: {fileID: 11400000, guid: 0f57184c9bf49b543bf59c7ac93ac3e7, type: 2}
+  enemyAISO: {fileID: 11400000, guid: 0f57184c9bf49b543bf59c7ac93ac3e7, type: 2}

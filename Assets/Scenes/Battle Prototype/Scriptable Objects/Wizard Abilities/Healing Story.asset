@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24355c8c23ccfdf418b8f7155b76bfd7, type: 3}
-  m_Name: Placeholder Ability
+  m_Name: Healing Story
   m_EditorClassIdentifier: 
   user: {fileID: 0}
-  name: Placeholder Ability
-  targetType: 0
-  buttonColor: {r: 0.6862745, g: 0.6862745, b: 0.6862745, a: 1}
+  name: Healing Story
+  targetType: 1
+  buttonColor: {r: 0.49019608, g: 1, b: 0.49019608, a: 1}
   cooldown: 0
-  unformattedDescription: This is a useless placeholder ability that does nothing
-    upon activation.
-  healRatio: 0
+  unformattedDescription: Vei reads an enchanted passage from her book and directs
+    the magic towards an ally, healing them for {healAmount} health.
+  healRatio: 0.3

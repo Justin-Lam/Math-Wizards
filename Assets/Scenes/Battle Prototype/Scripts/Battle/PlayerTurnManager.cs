@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerTurnManager : MonoBehaviour
@@ -32,7 +33,7 @@ public class PlayerTurnManager : MonoBehaviour
 		battleManager.SetBattleText("Select a wizard");
     }
 
-	public void WizardSelected(Unit wizard)
+	public void SelectWizard(Unit wizard)
 	{
 		// Set selectedWizard
 		selectedWizard = wizard;
@@ -46,12 +47,23 @@ public class PlayerTurnManager : MonoBehaviour
 		// Display "Choose an ability"
 		battleManager.SetBattleText("Choose an ability");
 	}
+	public void UnselectWizard()
+	{
+		// Unselect selected wizard
+		selectedWizard = null;
 
-	public void OnAbility1Selected() { AbilitySelected(0); }
-	public void OnAbility2Selected() { AbilitySelected(1); }
-	public void OnAbility3Selected() { AbilitySelected(2); }
-	public void OnAbility4Selected() { AbilitySelected(3); }
-	void AbilitySelected(int abiltyNum)
+		// Hide abilities panel
+		battleManager.HideAbilitiesPanel();
+
+		// Display "Select a wizard"
+		battleManager.SetBattleText("Select a wizard");
+	}
+
+	public void OnAbility1Selected() { SelectAbility(0); }
+	public void OnAbility2Selected() { SelectAbility(1); }
+	public void OnAbility3Selected() { SelectAbility(2); }
+	public void OnAbility4Selected() { SelectAbility(3); }
+	void SelectAbility(int abiltyNum)
 	{
 		// Hide the abilities panel
 		battleManager.HideAbilitiesPanel();
@@ -65,8 +77,22 @@ public class PlayerTurnManager : MonoBehaviour
 		// Display "Pick a target" if the ability is targeted
 		else { battleManager.SetBattleText("Pick a target"); }
 	}
+	public void UnselectAbility()
+	{
+		// Unselect selected ability
+		selectedAbilitySO = null;
 
-	public void TargetSelected(Unit target)
+		// Show abilities panel
+		battleManager.ShowAbilitiesPanel();
+
+		// Set ability buttons
+		battleManager.SetAbilityButtons(selectedWizard);
+
+		// Display "Choose an ability"
+		battleManager.SetBattleText("Choose an ability");
+	}
+
+	public void SelectTarget(Unit target)
 	{
 		// Set selectedTarget
 		selectedTarget = target;
@@ -78,7 +104,8 @@ public class PlayerTurnManager : MonoBehaviour
 	public void ActivateAbility(float mathResultMultiplier)
 	{
 		// Activate the ability
-		selectedAbilitySO.Activate(selectedTarget, mathResultMultiplier);
+		if (selectedAbilitySO.TargetType == AbilitySO.Targets.NONE) { selectedAbilitySO.Activate(mathResultMultiplier); }       // ability is untargeted
+		else { selectedAbilitySO.Activate(selectedTarget, mathResultMultiplier); }												// ability is targeted
 
 		// Kill any enemies that died (kill = remove from list and hide)
 		List<Unit> deadEnemies = battleManager.aliveEnemies.FindAll(enemy => enemy.CurrentHealth <= 0);		// save the enemies that died so we can hide them later
@@ -88,7 +115,6 @@ public class PlayerTurnManager : MonoBehaviour
 		// Subtract an action
 		subtractAction();
 	}
-
 
 	public void subtractAction()
 	{
@@ -116,7 +142,7 @@ public class PlayerTurnManager : MonoBehaviour
 				// Clear battle text
 				battleManager.SetBattleText("");
 
-				StartCoroutine(WaitThenSetEnemyTurn());
+				battleManager.SetEnemyTurn();
 			}
 		}
 		else											// all enemies have died, set to won
@@ -124,21 +150,7 @@ public class PlayerTurnManager : MonoBehaviour
 			// Clear battle text
 			battleManager.SetBattleText("");
 
-			StartCoroutine(WaitThenSetWon());
+			battleManager.SetWon();
 		}
-	}
-
-	IEnumerator WaitThenSetEnemyTurn()
-	{
-		// Set enemy turn after some time
-		yield return new WaitForSeconds(2f);
-		battleManager.SetEnemyTurn();
-	}
-
-	IEnumerator WaitThenSetWon()
-	{
-		// Set won after some time
-		yield return new WaitForSeconds(2f);
-		battleManager.SetWon();
 	}
 }

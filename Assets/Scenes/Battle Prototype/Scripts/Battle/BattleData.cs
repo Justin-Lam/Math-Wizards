@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class UnitData
+public class WizardData
 {
-	public UnitSO unit;
+	public WizardSO wizard;
+	public int slot;
+}
+
+[System.Serializable]
+public class EnemyData
+{
+	public EnemySO enemy;
 	public int slot;
 }
 
@@ -13,13 +20,13 @@ public class UnitData
 public class Wave
 // List of UnitDatas of enemies
 {
-	public List<UnitData> enemies = new List<UnitData>();
+	public List<EnemyData> enemies = new List<EnemyData>();
 }
 
 public class BattleData : MonoBehaviour
 {
 	[Header("Wizard Data")]
-	public List<UnitData> wizards = new List<UnitData>();
+	public List<WizardData> wizards = new List<WizardData>();
 
 	[Header("Enemy Data")]
 	public List<Wave> waves	= new List<Wave>();

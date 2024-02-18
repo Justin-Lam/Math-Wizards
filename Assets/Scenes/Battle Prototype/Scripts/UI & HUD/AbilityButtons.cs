@@ -46,24 +46,24 @@ public class AbilityButtons : MonoBehaviour
 		ability1Image.color = ability1.ButtonColor;
 		ability1NameText.text = ability1.Name;
 		ability1DescriptionPanelGO.SetActive(false);
-		ability1DescriptionText.text = ability1.GetDescription(wizard);
+		ability1DescriptionText.text = ability1.GetDescription();
 
 		// Setup button 2
 		ability2Image.color = ability2.ButtonColor;
 		ability2NameText.text = ability2.Name;
 		ability2DescriptionPanelGO.SetActive(false);
-		ability2DescriptionText.text = ability2.GetDescription(wizard);
+		ability2DescriptionText.text = ability2.GetDescription();
 
 		// Setup button 3
 		ability3Image.color = ability3.ButtonColor;
 		ability3NameText.text = ability3.Name;
 		ability3DescriptionPanelGO.SetActive(false);
-		ability3DescriptionText.text = ability3.GetDescription(wizard);
+		ability3DescriptionText.text = ability3.GetDescription();
 
 		// Setup button 4
 		ability4Image.color = ability4.ButtonColor;
 		ability4NameText.text = ability4.Name;
 		ability4DescriptionPanelGO.SetActive(false);
-		ability4DescriptionText.text = ability4.GetDescription(wizard);
+		ability4DescriptionText.text = ability4.GetDescription();
 	}
 }

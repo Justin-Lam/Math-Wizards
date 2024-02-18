@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca552c8f802af44288ad9956f878a3e, type: 3}
   m_Name: Ribbit
   m_EditorClassIdentifier: 
+  user: {fileID: 0}
   name: Ribbit
-  unformattedDescription: Frogg hops on a wizard, dealing {basePhysicalDamage} base
-    physical damage.
   targetType: 1
   buttonColor: {r: 1, g: 0.49019608, b: 0.49019608, a: 0}
-  cooldowns: 
-  physicalAttackRatios:
-  - 1
+  cooldown: 0
+  unformattedDescription: Frogg hops on a wizard, dealing {physicalDamage} physical
+    damage.
+  physicalAttackRatio: 1

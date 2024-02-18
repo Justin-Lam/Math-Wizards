@@ -27,26 +27,26 @@ public class StartManager : MonoBehaviour
         mathManager.HideMathCanvas();
 
         // Spawn wizards
-        foreach (UnitData unitData in battleManager.battleData.wizards)
+        foreach (WizardData wizardData in battleManager.battleData.wizards)
         {
 			// Create the wizard
-            Unit wizard = Instantiate(wizardPrefab, wizardGrid.transform.GetChild(unitData.slot - 1).transform).GetComponent<Unit>();
+            Wizard wizard = Instantiate(wizardPrefab, wizardGrid.transform.GetChild(wizardData.slot - 1).transform).GetComponent<Wizard>();
 
 			// Initialize the wizard
-            wizard.InitializeUnit(unitData.unit, false);
+            wizard.Initialize(wizardData.wizard);
 
 			// Add the wizard to the list of alive wizards
 			battleManager.aliveWizards.Add(wizard);
         }
 
 		// Spawn enemies
-		foreach (UnitData unitData in battleManager.battleData.waves[0].enemies)
+		foreach (EnemyData enemyData in battleManager.battleData.waves[0].enemies)
 		{
 			// Create the enemy
-			Unit enemy = Instantiate(enemyPrefab, enemyGrid.transform.GetChild(unitData.slot - 1).transform).GetComponent<Unit>();
+			Enemy enemy = Instantiate(enemyPrefab, enemyGrid.transform.GetChild(enemyData.slot - 1).transform).GetComponent<Enemy>();
 
 			// Initialize the enemy
-			enemy.InitializeUnit(unitData.unit, true);
+			enemy.Initialize(enemyData.enemy);
 
 			// Add the enemy to the list of alive enemies
 			battleManager.aliveEnemies.Add(enemy);

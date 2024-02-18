@@ -6,12 +6,15 @@ public class EnemyTurnManager : MonoBehaviour
 {
 	[SerializeField] BattleManager battleManager;
 
-	EnemyAISO aiSO;
+	EnemyAISO currentEnemyAISO;
 	AbilitySO selectedAbilitySO;
 	Unit selectedTarget;
 
-	public void SetupEnemyTurn()
+	public IEnumerator SetupEnemyTurn()
 	{
+		// Wait for some time
+		yield return new WaitForSeconds(2f);
+
 		// Set battle text
 		battleManager.SetBattleText("Enemies' Turn");
 
@@ -25,10 +28,10 @@ public class EnemyTurnManager : MonoBehaviour
 		yield return new WaitForSeconds(2f);
 
 		// One by one, let each enemy take an action
-		foreach (Unit enemy in battleManager.aliveEnemies)
+		foreach (Enemy enemy in battleManager.aliveEnemies)
 		{
 			// Reset all selected things
-			aiSO = null;
+			currentEnemyAISO = null;
 			selectedAbilitySO = null;
 			selectedTarget = null;
 
@@ -39,10 +42,10 @@ public class EnemyTurnManager : MonoBehaviour
 			yield return new WaitForSeconds(0.1f);
 
 			// Get the enemy's AI
-			aiSO = enemy.AISO;
+			currentEnemyAISO = enemy.EnemyAISO;
 
 			// Get the ability
-			selectedAbilitySO = aiSO.GetAbilitySO();
+			selectedAbilitySO = currentEnemyAISO.GetAbilitySO();
 
 			// Enemy's ability is untargeted
 			if (selectedAbilitySO.TargetType == AbilitySO.Targets.NONE)
@@ -57,7 +60,7 @@ public class EnemyTurnManager : MonoBehaviour
 			else
 			{
 				// Get the target
-				selectedTarget = aiSO.GetTarget(battleManager.aliveWizards);
+				selectedTarget = currentEnemyAISO.GetTarget(battleManager.aliveWizards);
 
 				// Set battle text
 				battleManager.SetBattleText($"{enemy.Name} uses {selectedAbilitySO.Name} on {selectedTarget.Name}");

@@ -55,7 +55,7 @@ public class BattleManager : MonoBehaviour
 	public void SetEnemyTurn()
 	{
 		state = BattleState.ENEMY_TURN;
-		enemyTurnManager.SetupEnemyTurn();
+		StartCoroutine(enemyTurnManager.SetupEnemyTurn());
 	}
 	public void SetWon()
 	{

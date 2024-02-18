@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca552c8f802af44288ad9956f878a3e, type: 3}
   m_Name: Mach Punch
   m_EditorClassIdentifier: 
-  name: 
-  unformattedDescription: 
-  targetType: 0
-  buttonColor: {r: 0, g: 0, b: 0, a: 0}
-  cooldowns: 000000000000000000000000
-  physicalAttackRatios:
-  - 0
-  - 0
-  - 0
+  user: {fileID: 0}
+  name: Mach Punch
+  targetType: 2
+  buttonColor: {r: 1, g: 0.49019608, b: 0.49019608, a: 1}
+  cooldown: 1
+  unformattedDescription: Mimi charges her enchanted rings and punches an enemy as
+    they discharge, dealing {physicalDamage} physical damage.
+  physicalAttackRatio: 1

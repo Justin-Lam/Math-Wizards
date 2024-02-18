@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Attack Random Enemy AI", menuName = "Enemy AI/Attack Random")]
+[CreateAssetMenu(fileName = "New Attack Random AI", menuName = "AI/Attack Random")]
 public class AttackRandomEnemyAISO : EnemyAISO
 {
 	public override AbilitySO GetAbilitySO()
