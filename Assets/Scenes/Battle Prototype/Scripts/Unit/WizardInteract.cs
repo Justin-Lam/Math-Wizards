@@ -36,7 +36,7 @@ public class WizardInteract : MonoBehaviour
 				playerTurnManager.SelectWizard(unit);
 			}
 			// Case 2: Selecting a wizard as the target of an ability
-			else if (playerTurnManager.SelectedTarget == null && playerTurnManager.SelectedAbilitySO.TargetType == AbilitySO.Targets.WIZARD)
+			else if (playerTurnManager.SelectedAbilitySO != null && playerTurnManager.SelectedAbilitySO.TargetType == AbilitySO.Targets.WIZARD && playerTurnManager.SelectedTarget == null)
 			{
 				// Call the appropriate function in PlayerTurnManager
 				playerTurnManager.SelectWizard(unit);

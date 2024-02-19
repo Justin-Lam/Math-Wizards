@@ -30,7 +30,7 @@ public class EnemyInteract : MonoBehaviour
 		if (battleManager.State == BattleManager.BattleState.PLAYER_TURN)
 		{
 			// Select the enemy as the target of an ability
-			if (playerTurnManager.SelectedWizard != null && playerTurnManager.SelectedTarget == null && playerTurnManager.SelectedAbilitySO.TargetType == AbilitySO.Targets.ENEMY)
+			if (playerTurnManager.SelectedWizard != null && playerTurnManager.SelectedAbilitySO != null && playerTurnManager.SelectedAbilitySO.TargetType == AbilitySO.Targets.ENEMY && playerTurnManager.SelectedTarget == null)
 			{
 				// Call the appropriate function in PlayerTurnManager
 				playerTurnManager.SelectTarget(unit);

@@ -72,7 +72,14 @@ public class PlayerTurnManager : MonoBehaviour
 		selectedAbilitySO = selectedWizard.Abilities[abiltyNum];
 
 		// Give a math exercise if the ability is untargeted
-		if (selectedAbilitySO.TargetType == AbilitySO.Targets.NONE) { StartCoroutine(mathManager.GiveMathExercise()); }
+		if (selectedAbilitySO.TargetType == AbilitySO.Targets.NONE)
+		{
+			// Clear the battle text
+			battleManager.SetBattleText("");
+
+			// Give a math exercise
+			StartCoroutine(mathManager.GiveMathExercise());	
+		}
 
 		// Display "Pick a target" if the ability is targeted
 		else { battleManager.SetBattleText("Pick a target"); }
@@ -96,6 +103,9 @@ public class PlayerTurnManager : MonoBehaviour
 	{
 		// Set selectedTarget
 		selectedTarget = target;
+
+		// Clear the battle text
+		battleManager.SetBattleText("");
 
 		// Give a math exercise
 		StartCoroutine(mathManager.GiveMathExercise());
@@ -130,14 +140,14 @@ public class PlayerTurnManager : MonoBehaviour
 		battleManager.SetActionsNumText(actionsRemaining.ToString());
 
 		// Check if need to change state depending on the state of the enemies
-		if (battleManager.aliveEnemies.Count > 0)		// there are enemies alive 
+		if (battleManager.aliveEnemies.Count > 0)       // there are enemies alive 
 		{
-			if (actionsRemaining > 0)					// there are actions remaining, wait for next player action
+			if (actionsRemaining > 0)                   // there are actions remaining, wait for next player action
 			{
 				// Display "Select a wizard"
 				battleManager.SetBattleText("Select a wizard");
 			}
-			else										// no actions remaining, set to enemy turn
+			else                                        // no actions remaining, set to enemy turn
 			{
 				// Clear battle text
 				battleManager.SetBattleText("");
@@ -145,12 +155,37 @@ public class PlayerTurnManager : MonoBehaviour
 				battleManager.SetEnemyTurn();
 			}
 		}
-		else											// all enemies have died, set to won
+		else                                            // all enemies have died, set to won
 		{
 			// Clear battle text
 			battleManager.SetBattleText("");
 
 			battleManager.SetWon();
+		}
+	}
+	
+	public void OnEndTurnButtonPressed()
+	{
+		// Check that it's the player's turn
+		if (battleManager.State == BattleManager.BattleState.PLAYER_TURN)
+		{
+			// Reset all selected things
+			selectedWizard = null;
+			selectedAbilitySO = null;
+			selectedTarget = null;
+
+			// Set actions remaining to 0 and display it
+			actionsRemaining = 0;
+			battleManager.SetActionsNumText(actionsRemaining.ToString());
+
+			// Clear battle text
+			battleManager.SetBattleText("");
+
+			// Hide abilities panel
+			battleManager.HideAbilitiesPanel();
+
+			// Set enemy turn
+			battleManager.SetEnemyTurn();
 		}
 	}
 }
