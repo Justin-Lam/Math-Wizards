@@ -7,18 +7,24 @@ public class BackgroundInteract : MonoBehaviour
 {
 	BattleManager battleManager;
 	PlayerTurnManager playerTurnManager;
+	CameraPanAndZoom cameraPanAndZoom;
 
 	void Start()
 	{
+		// Set variables
 		battleManager = FindObjectOfType<BattleManager>();
 		playerTurnManager = FindObjectOfType<PlayerTurnManager>();
+		cameraPanAndZoom = FindObjectOfType<CameraPanAndZoom>();
 	}
 
 	public void OnHovered()
-	// Hide wizard stats and enemy stats in HUD
 	{
+		// Hide wizard stats and enemy stats in HUD
 		battleManager.HideWizardStats();
 		battleManager.HideEnemyStats();
+
+		// Reset the camera zoom if a wizard hasn't been selected
+		if (playerTurnManager.SelectedWizard == null) { cameraPanAndZoom.SetDefault(); }
 	}
 
 	public void OnClicked()
@@ -37,6 +43,9 @@ public class BackgroundInteract : MonoBehaviour
 			{
 				// Unselect the selected wizard
 				playerTurnManager.UnselectWizard();
+
+				// Reset the camera zoom
+				cameraPanAndZoom.SetDefault();
 			}
 		}
 	}

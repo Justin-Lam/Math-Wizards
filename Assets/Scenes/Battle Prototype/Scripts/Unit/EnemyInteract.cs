@@ -7,20 +7,26 @@ public class EnemyInteract : MonoBehaviour
 {
 	BattleManager battleManager;
 	PlayerTurnManager playerTurnManager;
+	CameraPanAndZoom cameraPanAndZoom;
 	Unit unit;
 
 	void Start()
 	{
+		// Set variables
 		battleManager = FindObjectOfType<BattleManager>();
 		playerTurnManager = FindObjectOfType<PlayerTurnManager>();
+		cameraPanAndZoom = FindObjectOfType<CameraPanAndZoom>();
 		unit = this.gameObject.GetComponent<Unit>();
 	}
 
 	public void OnHovered()
-	// Show enemy's stats in HUD
 	{
+		// Show enemy's stats in HUD
 		battleManager.ShowEnemyStats();
 		battleManager.SetEnemyStats(unit);
+
+		// Zoom the camera in on them if a wizard hasn't been selected
+		if (playerTurnManager.SelectedWizard == null) { cameraPanAndZoom.SetUnitHovered(unit); }
 	}
 
 	public void OnClicked()

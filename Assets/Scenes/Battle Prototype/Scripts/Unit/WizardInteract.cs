@@ -7,20 +7,26 @@ public class WizardInteract : MonoBehaviour
 {
 	BattleManager battleManager;
 	PlayerTurnManager playerTurnManager;
+	CameraPanAndZoom cameraPanAndZoom;
 	Unit unit;
 
 	void Start()
 	{
+		// Set variables
 		battleManager = FindObjectOfType<BattleManager>();
 		playerTurnManager = FindObjectOfType<PlayerTurnManager>();
+		cameraPanAndZoom = FindObjectOfType<CameraPanAndZoom>();
 		unit = this.gameObject.GetComponent<Unit>();
 	}
 
 	public void OnHovered()
-	// Show wizard's stats in HUD
 	{
+		// Show wizard's stats in HUD
 		battleManager.ShowWizardStats();
 		battleManager.SetWizardStats(unit);
+
+		// Zoom the camera in on them if a wizard hasn't been selected
+		if (playerTurnManager.SelectedWizard == null) { cameraPanAndZoom.SetUnitHovered(unit); }
 	}
 
 	public void OnClicked()
@@ -34,12 +40,15 @@ public class WizardInteract : MonoBehaviour
 			{
 				// Call the appropriate function in PlayerTurnManager
 				playerTurnManager.SelectWizard(unit);
+
+				// Zoom the camera in on them
+				cameraPanAndZoom.SetUnitSelected(unit);
 			}
 			// Case 2: Selecting a wizard as the target of an ability
 			else if (playerTurnManager.SelectedAbilitySO != null && playerTurnManager.SelectedAbilitySO.TargetType == AbilitySO.Targets.WIZARD && playerTurnManager.SelectedTarget == null)
 			{
 				// Call the appropriate function in PlayerTurnManager
-				playerTurnManager.SelectWizard(unit);
+				playerTurnManager.SelectTarget(unit);
 			}
 		}
 	}
