@@ -23,8 +23,8 @@ public class BackgroundInteract : MonoBehaviour
 		battleManager.HideWizardStats();
 		battleManager.HideEnemyStats();
 
-		// Reset the camera zoom if a wizard hasn't been selected
-		if (playerTurnManager.SelectedWizard == null) { cameraPanAndZoom.SetDefault(); }
+		// Reset the camera zoom if a wizard hasn't been selected or if an ability has been selected
+		if (playerTurnManager.SelectedWizard == null || playerTurnManager.SelectedAbilitySO != null) { cameraPanAndZoom.SetDefault(); }
 	}
 
 	public void OnClicked()

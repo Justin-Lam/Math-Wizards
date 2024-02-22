@@ -16,7 +16,7 @@ public class EnemyInteract : MonoBehaviour
 		battleManager = FindObjectOfType<BattleManager>();
 		playerTurnManager = FindObjectOfType<PlayerTurnManager>();
 		cameraPanAndZoom = FindObjectOfType<CameraPanAndZoom>();
-		unit = this.gameObject.GetComponent<Unit>();
+		unit = gameObject.GetComponent<Unit>();
 	}
 
 	public void OnHovered()
@@ -25,8 +25,8 @@ public class EnemyInteract : MonoBehaviour
 		battleManager.ShowEnemyStats();
 		battleManager.SetEnemyStats(unit);
 
-		// Zoom the camera in on them if a wizard hasn't been selected
-		if (playerTurnManager.SelectedWizard == null) { cameraPanAndZoom.SetUnitHovered(unit); }
+		// Zoom the camera in on them if a wizard hasn't been selected or if an ability has been selected
+		if (playerTurnManager.SelectedWizard == null || playerTurnManager.SelectedAbilitySO != null) { cameraPanAndZoom.SetUnitHovered(unit); }
 	}
 
 	public void OnClicked()

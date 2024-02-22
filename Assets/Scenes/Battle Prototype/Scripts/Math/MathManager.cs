@@ -23,9 +23,11 @@ public class MathManager : MonoBehaviour
 	[Header("Components")]
 	[SerializeField] TextMeshProUGUI questionText;
 	[SerializeField] TextMeshProUGUI[] answerButtonTexts = new TextMeshProUGUI[4];
+	[SerializeField] TextMeshProUGUI greatAnswerResultAbilityPowerIncreaseText;
+	[SerializeField] TextMeshProUGUI mathExtraordinaireAnswerResultAbilityPowerIncreaseText;
 
 	[Header("Designer Variables")]
-	[SerializeField][Tooltip("Getting a Good! will result in a math result multiplier of 1 - this number, whereas getting a MATH EXTRAORDINAIRE!!! will result in a math result multiplier of 1 + this number")]
+	[SerializeField][Tooltip("Getting a Great!! will result in a math result multiplier of 1 + 1/2 of this number, whereas getting a MATH EXTRAORDINAIRE!!! will result in a math result multiplier of 1 + this number")]
 	float mathResultMultiplierRange;
 
 	[Header("Delays")]
@@ -33,6 +35,13 @@ public class MathManager : MonoBehaviour
     [SerializeField][Tooltip("Amount of time before the result of the answer is revealed")] float showAnswerResultDelay;
     [SerializeField][Tooltip("Amount of time before the the math canvas is hidden")] float returnToBattleDelay;
 
+
+	void Start()
+	{
+		// Set the ability power increase texts
+		greatAnswerResultAbilityPowerIncreaseText.text = "Ability power increased by " + (100 * mathResultMultiplierRange / 2f) + "%!";
+		mathExtraordinaireAnswerResultAbilityPowerIncreaseText.text = "Ability power increased by " + (100 * mathResultMultiplierRange) + "%!";
+	}
 
 	public IEnumerator GiveMathExercise()
     {
@@ -95,9 +104,9 @@ public class MathManager : MonoBehaviour
 			// Activate the ability
 			float mathResultMultiplier = 1.0f;
 
-			if (timerScript.CorrectAnswerResult == Timer.CorrectAnswerResults.GOOD)
+			if (timerScript.CorrectAnswerResult == Timer.CorrectAnswerResults.GREAT)
 			{
-				mathResultMultiplier -= mathResultMultiplierRange;
+				mathResultMultiplier += mathResultMultiplierRange / 2f;
 			}
 			else if (timerScript.CorrectAnswerResult == Timer.CorrectAnswerResults.MATH_EXTRAORDINAIRE)
 			{

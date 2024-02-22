@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerTurnManager : MonoBehaviour
 {
-	delegate void ActivateAbilityDelegate(Unit user, Unit target, float mathResultMultiplier);
-
 	[SerializeField] BattleManager battleManager;
 	[SerializeField] MathManager mathManager;
+	[SerializeField] CameraPanAndZoom cameraPanAndZoom;
 
 	Unit selectedWizard;									public Unit SelectedWizard => selectedWizard;
 	AbilitySO selectedAbilitySO;							public AbilitySO SelectedAbilitySO => selectedAbilitySO;
@@ -45,6 +45,14 @@ public class PlayerTurnManager : MonoBehaviour
 
 		// Display "Choose an ability"
 		battleManager.SetBattleText("Choose an ability");
+
+		// Hide every other wizard
+		foreach (Wizard otherWizard in battleManager.aliveWizards)
+		{
+			// Check that the wizard we're going to hide isn't the wizard that was selected
+			if (otherWizard == selectedWizard) { continue; }
+			else { otherWizard.gameObject.SetActive(false); }
+		}
 	}
 	public void UnselectWizard()
 	{
@@ -56,6 +64,9 @@ public class PlayerTurnManager : MonoBehaviour
 
 		// Display "Select a wizard"
 		battleManager.SetBattleText("Select a wizard");
+
+		// Show every other wizard
+		foreach (Wizard wizard in battleManager.aliveWizards) { wizard.gameObject.SetActive(true); }
 	}
 
 	public void OnAbility1Selected() { SelectAbility(0); }
@@ -66,6 +77,9 @@ public class PlayerTurnManager : MonoBehaviour
 	{
 		// Hide the abilities panel
 		battleManager.HideAbilitiesPanel();
+
+		// Zoom out the camera
+		cameraPanAndZoom.SetDefault();
 
 		// Set selectedAbilitySO
 		selectedAbilitySO = selectedWizard.Abilities[abiltyNum];
@@ -82,6 +96,9 @@ public class PlayerTurnManager : MonoBehaviour
 
 		// Display "Pick a target" if the ability is targeted
 		else { battleManager.SetBattleText("Pick a target"); }
+
+		// Show every other wizard
+		foreach (Wizard wizard in battleManager.aliveWizards) { wizard.gameObject.SetActive(true); }
 	}
 	public void UnselectAbility()
 	{
@@ -94,14 +111,28 @@ public class PlayerTurnManager : MonoBehaviour
 		// Set ability buttons
 		battleManager.SetAbilityButtons(selectedWizard);
 
+		// Zoom in the camera
+		cameraPanAndZoom.SetUnitSelected(selectedWizard);
+
 		// Display "Choose an ability"
 		battleManager.SetBattleText("Choose an ability");
+
+		// Hide every other wizard
+		foreach (Wizard otherWizard in battleManager.aliveWizards)
+		{
+			// Check that the wizard we're going to hide isn't the wizard that was selected
+			if (otherWizard == selectedWizard) { continue; }
+			else { otherWizard.gameObject.SetActive(false); }
+		}
 	}
 
 	public void SelectTarget(Unit target)
 	{
 		// Set selectedTarget
 		selectedTarget = target;
+
+		// Zoom out the camera
+		cameraPanAndZoom.SetDefault();
 
 		// Clear the battle text
 		battleManager.SetBattleText("");
