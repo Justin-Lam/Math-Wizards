@@ -1,12 +1,9 @@
 fileFormatVersion: 2
-guid: de9d4585abda9e840b0d15ccd2f323de
+guid: 21abda54718e5744c9e10ca8f22f289b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - spriteRenderer: {instanceID: 0}
-  - healthBar: {instanceID: 0}
-  - popupTextPrefab: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

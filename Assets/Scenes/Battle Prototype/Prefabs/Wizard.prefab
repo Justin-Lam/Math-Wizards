@@ -210,6 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7708109347859410932}
   healthBar: {fileID: 4597771588183406099}
+  popupTextPrefab: {fileID: 4864858693156312495, guid: 09b315160183393459aed4792c8de9ef, type: 3}
+  popupTextSpawnOffset: {x: 0, y: 2, z: 0}
 --- !u!61 &3216735016436502539
 BoxCollider2D:
   m_ObjectHideFlags: 0

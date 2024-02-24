@@ -26,7 +26,7 @@ public class AbilitySO : ScriptableObject
 	public virtual void Activate(Unit target) { }                                   // enemy ability, targeted
 
 
-	protected void DealPhysicalDamage(Unit target, float physicalAttackRatio, float mathMultiplier)			// wizard ability, targeted
+	protected void DealPhysicalDamage(Unit target, float physicalAttackRatio, float mathMultiplier)
 	{
 		// Calculate base damage
 		float baseDamage = user.PhysicalAttack * physicalAttackRatio;
@@ -37,10 +37,10 @@ public class AbilitySO : ScriptableObject
 		// Calculate total damage
 		float totalDamage = baseDamage * buffDebuffMultiplier * mathMultiplier;
 
-		// Deal premitigatedPhysicalDamage to the target
+		// Damage the target
 		target.TakePhysicalDamage(totalDamage);
 	}
-	protected void DealPhysicalDamage(Unit target, float physicalAttackRatio)                               // enemy ability, targeted
+	protected void DealPhysicalDamage(Unit target, float physicalAttackRatio)
 	{
 		// Calculate base damage
 		float baseDamage = user.PhysicalAttack * physicalAttackRatio;
@@ -51,11 +51,40 @@ public class AbilitySO : ScriptableObject
 		// Calculate total damage
 		float totalDamage = baseDamage * buffDebuffMultiplier;
 
-		// Deal premitigatedPhysicalDamage to the target
+		// Damage the target
 		target.TakePhysicalDamage(totalDamage);
 	}
 
-	protected void Heal(Unit target, float healRatio, float mathMultiplier)									// wizard ability, targeted
+	protected void DealMagicDamage(Unit target, float spellPowerRatio, float mathMultiplier)
+	{
+		// Calculate base damage
+		float baseDamage = user.SpellPower * spellPowerRatio;
+
+		// Loop through all buffs and debuffs to get buffDebuffMultiplier
+		float buffDebuffMultiplier = 1.0f;
+
+		// Calculate total damage
+		float totalDamage = baseDamage * buffDebuffMultiplier * mathMultiplier;
+
+		// Damage the target
+		target.TakeMagicDamage(totalDamage);
+	}
+	protected void DealMagicDamage(Unit target, float spellPowerRatio)
+	{
+		// Calculate base damage
+		float baseDamage = user.SpellPower * spellPowerRatio;
+
+		// Loop through all buffs and debuffs to get buffDebuffMultiplier
+		float buffDebuffMultiplier = 1.0f;
+
+		// Calculate total damage
+		float totalDamage = baseDamage * buffDebuffMultiplier;
+
+		// Damage the target
+		target.TakeMagicDamage(totalDamage);
+	}
+
+	protected void Heal(Unit target, float healRatio, float mathMultiplier)
 	{
 		// Calculate base heal amount
 		float baseHealAmount = user.SpellPower * healRatio;
@@ -69,7 +98,7 @@ public class AbilitySO : ScriptableObject
 		// Heal the target
 		target.Heal(totalHealAmount);
 	}
-	protected void Heal(Unit target, float healRatio)														// enemy ability, targeted
+	protected void Heal(Unit target, float healRatio)
 	{
 		// Calculate base heal amount
 		float baseHealAmount = user.SpellPower * healRatio;

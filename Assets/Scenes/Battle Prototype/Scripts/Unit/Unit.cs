@@ -7,6 +7,8 @@ public class Unit : MonoBehaviour
 {
 	[SerializeField] SpriteRenderer spriteRenderer;
 	[SerializeField] Slider healthBar;
+	[SerializeField] GameObject popupTextPrefab;
+	[SerializeField] Vector3 popupTextSpawnOffset;
 
 	UnitSO unitSO;		public UnitSO UnitSOVar => unitSO;
 	public string Name => unitSO.Name;
@@ -54,6 +56,19 @@ public class Unit : MonoBehaviour
 		healthBar.value = currentHealth / maxHealth;
 	}
 
+	void CreatePopupText(PopupText.Types type, float num)
+	{
+		// Create the popup text, get the game object and its PopupText script
+		GameObject popupTextGO = Instantiate(popupTextPrefab, gameObject.transform);
+		PopupText popupText = popupTextGO.GetComponent<PopupText>();
+
+		// Shift the popup text
+		popupTextGO.transform.position += popupTextSpawnOffset;
+
+		// Setup the popup text
+		popupText.Setup(type, num);
+	}
+
 	public void TakePhysicalDamage(float damage)
 	{
 		// Calculate damage ratio (the amount of damage that gets through)
@@ -65,17 +80,42 @@ public class Unit : MonoBehaviour
 		// Take damage
 		currentHealth -= damageTaken;
 
+		// Create popup text
+		CreatePopupText(PopupText.Types.PHYSICAL_DAMAGE, damageTaken);
+
 		// Fix health if needed
 		if (currentHealth < 0f) { currentHealth = 0f; }
 
 		// Update health bar
 		UpdateHealthBar();
 	}
+	public void TakeMagicDamage(float damage)
+	{
+		// Calculate damage ratio (the amount of damage that gets through)
+		float damageRatio = 100 / (100 + SpellDefense);
 
+		// Calculate damage taken
+		float damageTaken = damage * damageRatio;
+
+		// Take damage
+		currentHealth -= damageTaken;
+
+		// Create popup text
+		CreatePopupText(PopupText.Types.MAGIC_DAMAGE, damageTaken);
+
+		// Fix health if needed
+		if (currentHealth < 0f) { currentHealth = 0f; }
+
+		// Update health bar
+		UpdateHealthBar();
+	}
 	public void Heal(float healAmount)
 	{
 		// Heal
 		currentHealth += healAmount;
+
+		// Create popup text
+		CreatePopupText(PopupText.Types.HEAL, healAmount);
 
 		// Fix health if needed
 		if (currentHealth > maxHealth) { currentHealth = maxHealth; }

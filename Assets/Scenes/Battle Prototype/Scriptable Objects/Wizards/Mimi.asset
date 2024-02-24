@@ -23,7 +23,7 @@ MonoBehaviour:
   spellBreak: 0
   spellDefense: 12
   abilities:
-  - {fileID: 11400000, guid: 95d5643411037f848bb9efcc75320673, type: 2}
+  - {fileID: 11400000, guid: d4bf3c2c543eb9b458528ba2dc6a7288, type: 2}
   - {fileID: 11400000, guid: 4e390cbd6d32b294eaccbd048c68f55f, type: 2}
   - {fileID: 11400000, guid: 4e390cbd6d32b294eaccbd048c68f55f, type: 2}
   - {fileID: 11400000, guid: 4e390cbd6d32b294eaccbd048c68f55f, type: 2}

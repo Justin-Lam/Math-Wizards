@@ -3,7 +3,13 @@ guid: 4e5ed9698792cfc42b5bc9460c0a65d7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - battleManager: {instanceID: 0}
+  - mathManager: {instanceID: 0}
+  - wizardPrefab: {instanceID: 0}
+  - enemyPrefab: {instanceID: 0}
+  - wizardGrid: {instanceID: 0}
+  - enemyGrid: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
