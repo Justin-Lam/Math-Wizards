@@ -38,10 +38,10 @@ public class PlayerTurnManager : MonoBehaviour
 		selectedWizard = wizard;
 
 		// Show abilities panel
-		battleManager.ShowAbilitiesPanel();
+		battleManager.ShowAbilitiesButtonsAndDescriptionPanel();
 
 		// Set ability buttons
-		battleManager.SetAbilityButtons(wizard);
+		battleManager.SetupAbilityButtonsAndDescriptionPanel(wizard);
 
 		// Display "Choose an ability"
 		battleManager.SetBattleText("Choose an ability");
@@ -60,7 +60,7 @@ public class PlayerTurnManager : MonoBehaviour
 		selectedWizard = null;
 
 		// Hide abilities panel
-		battleManager.HideAbilitiesPanel();
+		battleManager.HideAbilityButtonsAndDescriptionPanel();
 
 		// Display "Select a wizard"
 		battleManager.SetBattleText("Select a wizard");
@@ -76,7 +76,7 @@ public class PlayerTurnManager : MonoBehaviour
 	void SelectAbility(int abiltyNum)
 	{
 		// Hide the abilities panel
-		battleManager.HideAbilitiesPanel();
+		battleManager.HideAbilityButtonsAndDescriptionPanel();
 
 		// Zoom out the camera
 		cameraPanAndZoom.SetDefault();
@@ -106,10 +106,10 @@ public class PlayerTurnManager : MonoBehaviour
 		selectedAbilitySO = null;
 
 		// Show abilities panel
-		battleManager.ShowAbilitiesPanel();
+		battleManager.ShowAbilitiesButtonsAndDescriptionPanel();
 
 		// Set ability buttons
-		battleManager.SetAbilityButtons(selectedWizard);
+		battleManager.SetupAbilityButtonsAndDescriptionPanel(selectedWizard);
 
 		// Zoom in the camera
 		cameraPanAndZoom.SetUnitSelected(selectedWizard);
@@ -212,7 +212,7 @@ public class PlayerTurnManager : MonoBehaviour
 			battleManager.SetBattleText("");
 
 			// Hide abilities panel
-			battleManager.HideAbilitiesPanel();
+			battleManager.HideAbilityButtonsAndDescriptionPanel();
 
 			// Set enemy turn
 			battleManager.SetEnemyTurn();

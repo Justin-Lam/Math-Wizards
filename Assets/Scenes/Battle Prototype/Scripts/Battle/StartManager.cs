@@ -23,7 +23,7 @@ public class StartManager : MonoBehaviour
 		// Hide UI and HUD stuff
 		battleManager.HideWizardStats();
 		battleManager.HideEnemyStats();
-		battleManager.HideAbilitiesPanel();
+		battleManager.HideAbilityButtonsAndDescriptionPanel();
         mathManager.HideMathCanvas();
 
         // Spawn wizards

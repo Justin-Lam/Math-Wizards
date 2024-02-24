@@ -20,16 +20,18 @@ public class BattleManager : MonoBehaviour
 	[SerializeField] LostManager lostManager;
 
 	[Header("Game Objects")]
-	[SerializeField] GameObject wizardStatsGO;			public void ShowWizardStats() { wizardStatsGO.SetActive(true); }			public void HideWizardStats() { wizardStatsGO.SetActive(false); }
-	[SerializeField] GameObject enemyStatsGO;			public void ShowEnemyStats() { enemyStatsGO.SetActive(true); }				public void HideEnemyStats() { enemyStatsGO.SetActive(false); }
-	[SerializeField] GameObject abilitiesPanelGO;		public void ShowAbilitiesPanel() { abilitiesPanelGO.SetActive(true); }		public void HideAbilitiesPanel() { abilitiesPanelGO.SetActive(false); }
+	[SerializeField] GameObject wizardStatsGO;														public void ShowWizardStats() { wizardStatsGO.SetActive(true); }		public void HideWizardStats() { wizardStatsGO.SetActive(false); }
+	[SerializeField] GameObject enemyStatsGO;														public void ShowEnemyStats() { enemyStatsGO.SetActive(true); }			public void HideEnemyStats() { enemyStatsGO.SetActive(false); }
+	[SerializeField] GameObject abilityButtonsAndDescriptionPanelGO;
+	public void ShowAbilitiesButtonsAndDescriptionPanel() { abilityButtonsAndDescriptionPanelGO.SetActive(true); }
+	public void HideAbilityButtonsAndDescriptionPanel() { abilityButtonsAndDescriptionPanelGO.SetActive(false); }
 
 	[Header("Components")]
-	[SerializeField] TextMeshProUGUI actionsNumText;		public void SetActionsNumText(string text) { actionsNumText.text = text; }
-	[SerializeField] TextMeshProUGUI battleText;			public void SetBattleText(string text) { battleText.text = text; }
-	[SerializeField] UnitStats wizardStats;					public void SetWizardStats(Unit unit) { wizardStats.UpdateDisplay(unit); }
-	[SerializeField] UnitStats enemyStats;					public void SetEnemyStats(Unit unit) { enemyStats.UpdateDisplay(unit); }
-	[SerializeField] AbilityButtons abilityButtons;			public void SetAbilityButtons(Unit wizard) { abilityButtons.SetButtons(wizard); }
+	[SerializeField] TextMeshProUGUI actionsNumText;												public void SetActionsNumText(string text) { actionsNumText.text = text; }
+	[SerializeField] TextMeshProUGUI battleText;													public void SetBattleText(string text) { battleText.text = text; }
+	[SerializeField] UnitStats wizardStats;															public void SetWizardStats(Unit unit) { wizardStats.UpdateDisplay(unit); }
+	[SerializeField] UnitStats enemyStats;															public void SetEnemyStats(Unit unit) { enemyStats.UpdateDisplay(unit); }
+	[SerializeField] AbilityButtonsAndDescriptionPanel abilityButtonsAndDescriptionPanel;			public void SetupAbilityButtonsAndDescriptionPanel(Unit wizard) { abilityButtonsAndDescriptionPanel.Setup(wizard); }
 
 
 	public List<Unit> aliveWizards;

@@ -15,8 +15,9 @@ MonoBehaviour:
   user: {fileID: 0}
   name: Mach Punch
   targetType: 2
-  buttonColor: {r: 1, g: 0.49019608, b: 0.49019608, a: 1}
+  buttonColor: {r: 0.49019608, g: 0.49019608, b: 1, a: 1}
   cooldown: 1
   unformattedDescription: Mimi charges her enchanted rings and punches an enemy as
-    they discharge, dealing {physicalDamage} physical damage.
+    they discharge, dealing {physicalDamage} physical damage and {magicDamage} magic
+    damage.
   physicalAttackRatio: 1

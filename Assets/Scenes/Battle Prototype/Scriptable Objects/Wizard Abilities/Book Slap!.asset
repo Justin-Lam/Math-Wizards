@@ -17,6 +17,7 @@ MonoBehaviour:
   targetType: 2
   buttonColor: {r: 1, g: 0.49019608, b: 0.49019608, a: 1}
   cooldown: 0
-  unformattedDescription: Vei closes her magical book shut and slaps an enemy with
-    it, dealing {physicalDamage} physical damage.
+  unformattedDescription: "Vei closes her magical book shut and slaps an enemy with
+    it, dealing {physicalDamage} physical damage. \n\nThe slap demoralizes the enemy,
+    decreasing their armor by {armorShred} for {armorShredTime] turns."
   physicalAttackRatio: 1
