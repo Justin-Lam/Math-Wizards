@@ -228,7 +228,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 0.75, y: 0.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 1007633523683737567}
   - component: {fileID: 5471545284346157259}
   - component: {fileID: 3389756080872577329}
+  - component: {fileID: 5894565402261050969}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -285,8 +286,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 4343221785522803263}
   healthBar: {fileID: 6520781176271499014}
+  animator: {fileID: 5894565402261050969}
   popupTextPrefab: {fileID: 4864858693156312495, guid: 09b315160183393459aed4792c8de9ef, type: 3}
-  popupTextSpawnOffset: {x: 0, y: 2, z: 0}
+  popupTextRandomSpawnPositionOffsetRanges: {x: 0.1, y: 0.1}
 --- !u!61 &1007633523683737567
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -389,6 +391,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222400fc4a6d48d4f8598fde19e9703c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &5894565402261050969
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5976870450947119278}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a2b4bfe8ff22eb44b220de56d5f228b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6746577530632403147
 GameObject:
   m_ObjectHideFlags: 0

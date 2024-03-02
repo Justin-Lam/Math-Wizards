@@ -69,10 +69,9 @@ public class EnemyTurnManager : MonoBehaviour
 				selectedAbilitySO.Activate(selectedTarget);
 			}
 
-			// Kill any enemies that died (kill = remove from list and hide)
+			// Remove any wizards that died from aliveWizards
 			List<Unit> deadWizards = battleManager.aliveWizards.FindAll(wizard => wizard.CurrentHealth <= 0);			// save the wizards that died so we can hide them later
 			battleManager.aliveWizards.RemoveAll(wizard => wizard.CurrentHealth <= 0);									// remove
-			foreach (Unit wizard in deadWizards) { wizard.gameObject.SetActive(false); }								// hide
 			
 			// Wait for some time
 			yield return new WaitForSeconds(1f);

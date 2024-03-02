@@ -7,8 +7,8 @@ public class Unit : MonoBehaviour
 {
 	[SerializeField] SpriteRenderer spriteRenderer;
 	[SerializeField] Slider healthBar;
+	[SerializeField] Animator animator;
 	[SerializeField] GameObject popupTextPrefab;
-	[SerializeField] Vector3 popupTextSpawnOffset;
 
 	UnitSO unitSO;		public UnitSO UnitSOVar => unitSO;
 	public string Name => unitSO.Name;
@@ -58,17 +58,33 @@ public class Unit : MonoBehaviour
 
 	void CreatePopupText(PopupText.Types type, float num)
 	{
-		// Create the popup text, get the game object and its PopupText script
-		GameObject popupTextGO = Instantiate(popupTextPrefab, gameObject.transform);
-		PopupText popupText = popupTextGO.GetComponent<PopupText>();
-
-		// Shift the popup text
-		popupTextGO.transform.position += popupTextSpawnOffset;
+		// Create the popup text and get its PopupText script
+		PopupText popupText = Instantiate(popupTextPrefab, gameObject.transform.position, gameObject.transform.rotation).GetComponent<PopupText>();
 
 		// Setup the popup text
 		popupText.Setup(type, num);
 	}
 
+
+	void TakeDamage (float damage)
+	{
+		// Take damage
+		currentHealth -= damage;
+
+		// Play take damage animation
+		animator.SetTrigger("tookDamage");
+
+		// If died, fix health if needed and trigger death animation
+		if (currentHealth < 0f)
+		{
+			currentHealth = 0f;
+			animator.SetBool("isAlive", false);
+		}
+
+		// Update health bar and animator's healthRatio
+		UpdateHealthBar();
+		animator.SetFloat("healthRatio", currentHealth / maxHealth);
+	}
 	public void TakePhysicalDamage(float damage)
 	{
 		// Calculate damage ratio (the amount of damage that gets through)
@@ -77,17 +93,11 @@ public class Unit : MonoBehaviour
 		// Calculate damage taken
 		float damageTaken = damage * damageRatio;
 
-		// Take damage
-		currentHealth -= damageTaken;
+		// Take Damage
+		TakeDamage(damageTaken);
 
 		// Create popup text
 		CreatePopupText(PopupText.Types.PHYSICAL_DAMAGE, damageTaken);
-
-		// Fix health if needed
-		if (currentHealth < 0f) { currentHealth = 0f; }
-
-		// Update health bar
-		UpdateHealthBar();
 	}
 	public void TakeMagicDamage(float damage)
 	{
@@ -97,17 +107,11 @@ public class Unit : MonoBehaviour
 		// Calculate damage taken
 		float damageTaken = damage * damageRatio;
 
-		// Take damage
-		currentHealth -= damageTaken;
+		// Take Damage
+		TakeDamage(damageTaken);
 
 		// Create popup text
 		CreatePopupText(PopupText.Types.MAGIC_DAMAGE, damageTaken);
-
-		// Fix health if needed
-		if (currentHealth < 0f) { currentHealth = 0f; }
-
-		// Update health bar
-		UpdateHealthBar();
 	}
 	public void Heal(float healAmount)
 	{
@@ -120,7 +124,13 @@ public class Unit : MonoBehaviour
 		// Fix health if needed
 		if (currentHealth > maxHealth) { currentHealth = maxHealth; }
 
-		// Update health bar
+		// Update health bar and animator's healthRatio
 		UpdateHealthBar();
+		animator.SetFloat("healthRatio", currentHealth / maxHealth);
+	}
+	public void Die()
+	{
+		// Hide the unit
+		gameObject.SetActive(false);
 	}
 }

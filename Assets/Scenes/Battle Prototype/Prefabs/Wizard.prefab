@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 3216735016436502539}
   - component: {fileID: -5969550978090316618}
   - component: {fileID: 5403722070186266179}
+  - component: {fileID: 891681555995973699}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Wizard
@@ -210,8 +211,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7708109347859410932}
   healthBar: {fileID: 4597771588183406099}
+  animator: {fileID: 891681555995973699}
   popupTextPrefab: {fileID: 4864858693156312495, guid: 09b315160183393459aed4792c8de9ef, type: 3}
-  popupTextSpawnOffset: {x: 0, y: 2, z: 0}
+  popupTextRandomSpawnPositionOffsetRanges: {x: 0.1, y: 0.1}
 --- !u!61 &3216735016436502539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -314,6 +316,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e238229c9baba249853df9f7a401b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &891681555995973699
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4700354737839252297}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a2b4bfe8ff22eb44b220de56d5f228b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5272022523792878611
 GameObject:
   m_ObjectHideFlags: 0

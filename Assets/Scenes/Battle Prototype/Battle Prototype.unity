@@ -10746,6 +10746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0386ab5585650f419660b20e9450b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  descriptionPanelGO: {fileID: 412377978}
   descriptionText: {fileID: 1246811449}
   ability1Image: {fileID: 1897932976}
   ability1Button: {fileID: 1897932975}

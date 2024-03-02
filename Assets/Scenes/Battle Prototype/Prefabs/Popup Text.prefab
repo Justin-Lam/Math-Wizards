@@ -111,10 +111,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5810376923009387147}
-  - component: {fileID: 8978500204161788289}
   - component: {fileID: 321133642577467857}
   m_Layer: 0
-  m_Name: PopupText
+  m_Name: Popup Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,27 +135,6 @@ Transform:
   - {fileID: 8933544499548737733}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8978500204161788289
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4864858693156312495}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 068f2731e7f18294db588ee67f806b70, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &321133642577467857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 6119037992811096581}
-  destructionTimer: 2
+  spawnPositionYOffset: 1
+  randomSpawnPositionOffsetRanges: {x: 0.5, y: 0.1}
   physicalDamageColor: {r: 1, g: 0, b: 0, a: 1}
   magicDamageColor: {r: 0, g: 1, b: 1, a: 1}
   trueDamageColor: {r: 1, g: 1, b: 1, a: 1}
@@ -186,6 +165,8 @@ GameObject:
   - component: {fileID: 6872181093530699938}
   - component: {fileID: 2970667993400340434}
   - component: {fileID: 6119037992811096581}
+  - component: {fileID: 1890762236650626337}
+  - component: {fileID: 1294312006523774550}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -309,3 +290,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!95 &1890762236650626337
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883961719324190702}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 923df431730fc0946a571e4e479a4128, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1294312006523774550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4883961719324190702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4dbf77a4830a1d49af76e5b671b64f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupText: {fileID: 321133642577467857}

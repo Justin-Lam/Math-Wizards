@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class AbilityButtonsAndDescriptionPanel : MonoBehaviour
 {
 	[Header("Description Panel")]
+	[SerializeField] GameObject descriptionPanelGO;
 	[SerializeField] TextMeshProUGUI descriptionText;
 
 	[Header("Button 1")]
@@ -39,8 +40,9 @@ public class AbilityButtonsAndDescriptionPanel : MonoBehaviour
 		abilities[2] = wizard.Abilities[2];
 		abilities[3] = wizard.Abilities[3];
 
-		// Clear the description panel
+		// Clear and hide the description panel
 		descriptionText.text = "";
+		descriptionPanelGO.SetActive(false);
 		
 		// Setup button 1
 		ability1Image.color = abilities[0].ButtonColor;
@@ -59,13 +61,26 @@ public class AbilityButtonsAndDescriptionPanel : MonoBehaviour
 		ability4NameText.text = abilities[3].Name;
 	}
 
-	public void OnAbilityUnHovered() { descriptionText.text = ""; }
+
 	public void OnAbility1Hovered() { SetDescriptionText(0); }
 	public void OnAbility2Hovered() { SetDescriptionText(1); }
 	public void OnAbility3Hovered() { SetDescriptionText(2); }
 	public void OnAbility4Hovered() { SetDescriptionText(3); }
 	void SetDescriptionText(int abilityNum)
 	{
+		// Show the description panel
+		descriptionPanelGO.SetActive(true);
+
+		// Set the description text
 		descriptionText.text = abilities[abilityNum].GetDescription();
+	}
+
+	public void OnAbilityUnHovered()
+	{
+		// Clear the description text
+		descriptionText.text = "";
+
+		// Hide the description panel
+		descriptionPanelGO.SetActive(false);
 	}
 }

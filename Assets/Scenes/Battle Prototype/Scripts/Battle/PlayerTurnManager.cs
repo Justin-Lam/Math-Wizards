@@ -147,10 +147,9 @@ public class PlayerTurnManager : MonoBehaviour
 		if (selectedAbilitySO.TargetType == AbilitySO.Targets.NONE) { selectedAbilitySO.Activate(mathResultMultiplier); }       // ability is untargeted
 		else { selectedAbilitySO.Activate(selectedTarget, mathResultMultiplier); }												// ability is targeted
 
-		// Kill any enemies that died (kill = remove from list and hide)
+		// Remove any enemies that died from aliveEnemies
 		List<Unit> deadEnemies = battleManager.aliveEnemies.FindAll(enemy => enemy.CurrentHealth <= 0);		// save the enemies that died so we can hide them later
 		battleManager.aliveEnemies.RemoveAll(enemy => enemy.CurrentHealth <= 0);							// remove
-		foreach (Unit enemy in deadEnemies) { enemy.gameObject.SetActive(false); }							// hide
 
 		// Subtract an action
 		subtractAction();
