@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
 	[SerializeField] SpriteRenderer spriteRenderer;
-	[SerializeField] Slider healthBar;
+	[SerializeField] FloatingHealthBar floatingHealthBar;
 	[SerializeField] Animator animator;
 	[SerializeField] GameObject popupTextPrefab;
 
@@ -28,13 +27,13 @@ public class Unit : MonoBehaviour
 
 	protected void InitializeUnit(UnitSO inputUnitSO)
 	{
-		// Set unitSO
+		// Initialize unitSO
 		unitSO = inputUnitSO;
 
-		// Set abilities' user
+		// Initialize abilities' user
 		foreach (AbilitySO abilitySO in unitSO.Abilities) { abilitySO.user = this; }
 
-		// Set stats
+		// Initialize stats
 		maxHealth = inputUnitSO.MaxHealth;
 		currentHealth = inputUnitSO.MaxHealth;
 		physicalAttack = inputUnitSO.PhysicalAttack;
@@ -44,16 +43,11 @@ public class Unit : MonoBehaviour
 		spellBreak = inputUnitSO.SpellBreak;
 		spellDefense = inputUnitSO.SpellDefense;
 
-		// Set sprite
+		// Initialize sprite
 		spriteRenderer.sprite = inputUnitSO.Sprite;
 
-		// Set health bar
-		UpdateHealthBar();
-	}
-
-	void UpdateHealthBar()
-	{
-		healthBar.value = currentHealth / maxHealth;
+		// Initialize floating health bar
+		floatingHealthBar.Initialize();
 	}
 
 	void CreatePopupText(PopupText.Types type, float num)
@@ -81,8 +75,8 @@ public class Unit : MonoBehaviour
 			animator.SetBool("isAlive", false);
 		}
 
-		// Update health bar and animator's healthRatio
-		UpdateHealthBar();
+		// Update floating health bar and animator's healthRatio
+		StartCoroutine(floatingHealthBar.TakeDamage(currentHealth, maxHealth));
 		animator.SetFloat("healthRatio", currentHealth / maxHealth);
 	}
 	public void TakePhysicalDamage(float damage)
@@ -125,7 +119,7 @@ public class Unit : MonoBehaviour
 		if (currentHealth > maxHealth) { currentHealth = maxHealth; }
 
 		// Update health bar and animator's healthRatio
-		UpdateHealthBar();
+		StartCoroutine(floatingHealthBar.Heal(currentHealth, maxHealth));
 		animator.SetFloat("healthRatio", currentHealth / maxHealth);
 	}
 	public void Die()
