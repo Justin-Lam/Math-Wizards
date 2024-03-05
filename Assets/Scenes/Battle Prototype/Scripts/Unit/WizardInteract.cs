@@ -26,8 +26,8 @@ public class WizardInteract : MonoBehaviour
 		battleManager.ShowWizardStats();
 		battleManager.SetWizardStats(unit);
 
-		// Zoom the camera in on them if a wizard hasn't been selected or if an ability has been selected
-		if (playerTurnManager.SelectedWizard == null || playerTurnManager.SelectedAbilitySO != null) { cameraPanAndZoom.SetUnitHovered(unit); }
+		// Zoom the camera in on them if a wizard hasn't been selected or if an ability has been selected and it targets wizards
+		if (playerTurnManager.SelectedWizard == null || playerTurnManager.SelectedAbilitySO != null && playerTurnManager.SelectedAbilitySO.TargetType == AbilitySO.Targets.WIZARD) { cameraPanAndZoom.SetUnitHovered(unit); }
 	}
 
 	public void OnClicked()
